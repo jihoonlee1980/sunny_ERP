@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+	<!-- 	<typeAlias type="com.test.model.ExcelDTO" alias="excelDTO" />
+		<typeAlias type="admin.model.AdminDto" alias="adminDTO" /> -->
+	</typeAliases>
+
+	<mappers>
+		<!-- <mapper resource="spring/AdminBoardSQL.xml" />
+		<mapper resource="spring/ExcelSQL.xml" /> -->
+	</mappers>
+</configuration>
