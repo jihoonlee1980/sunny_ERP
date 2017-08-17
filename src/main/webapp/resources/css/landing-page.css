@@ -137,6 +137,12 @@ h6 {
     background: url(../img/main/product2.jpg) no-repeat 2% 33%;
     background-size: cover;
 }
+.event_banner {
+	padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/main/product2.jpg) no-repeat 2% 33%;
+    background-size: cover;
+}
 .banner h2 {
     margin: 0;
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);

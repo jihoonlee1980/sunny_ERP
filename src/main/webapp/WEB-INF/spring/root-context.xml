@@ -29,8 +29,8 @@
 		<constructor-arg ref="mysqlSessionFactory" />
 	</bean>
 
-	<!-- <bean id="excelDAO" class="com.test.model.ExcelDAO">
+	<bean id="eventBoardDAO" class="com.menu.model.EventBoardDAO">
 		<property name="sqlSessionTemplate" ref="mysqlSessionTemplate" />
-	</bean> -->
+	</bean>
 
 </beans>

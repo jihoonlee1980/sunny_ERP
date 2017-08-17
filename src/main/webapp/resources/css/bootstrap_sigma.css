@@ -232,7 +232,7 @@
 		clear:both;
 		margin:0 auto;
 	}
-	.gallery-row {clear:both; margin:50px 0;}
+	.gallery-row {margin-bottom:50px;}
 	.modal-dialog {width:600px;}
 	.thumbnail {margin-bottom:6px;}
 	

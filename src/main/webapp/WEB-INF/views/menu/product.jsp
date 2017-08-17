@@ -10,7 +10,7 @@
 <link href="${root}/css/pricing_table.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,400italic' type='text/css'  rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="css/ekko-lightbox.min.css">
-<link rel="stylesheet" type="text/css" href="${root}/css/bootstrap_sigma.css?ver=11">
+<link rel="stylesheet" type="text/css" href="${root}/css/bootstrap_sigma.css?ver=40">
 <script src="${root}/js/bootstrap.min.js?ver=2"></script>
 <!-- Header -->
 <div class="banner product_banner">
@@ -116,7 +116,7 @@
         	});
 	        </script>
 	        <div style="clear:both;"></div>
-	        <div class="gallery-row">
+	        <div class="gallery-row" style="margin-bottom:50px;">
 			    <h1 style="margin:50px 0;">미리보기</h1>			   
 			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 1" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350"></a><div><h4>TEST</h4><p>testetes</p></div></div>
 			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 2" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/2255EE"></a><div><h4>TEST</h4><p>testetes</p></div></div>
@@ -126,16 +126,9 @@
 			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 6" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/449955/FFF"></a><div><h4>TEST</h4><p>testetes</p></div></div>
 			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 8" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/777"></a><div><h4>TEST</h4><p>testetes</p></div></div>
 			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 9" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/992233"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 10" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/EEE"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 11" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/449955/FFF"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 12" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/DDD"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 13" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/992233"></a><div><h4>TEST</h4><p>testetes</p></div></div>
+			      <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 10" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/EEE"></a><div><h4>TEST</h4><p>testetes</p></div></div>			      	   
 			   
-			    <hr>
-			    
-			    <hr>
-			</div>
-		
+			</div>		
 		<div tabindex="-1" class="modal fade" id="myModal" role="dialog">
 		  <div class="modal-dialog">
 		  <div class="modal-content">
@@ -151,6 +144,7 @@
 			</div>
 		   </div>
 		  </div>
+		  <br><br>
         </div> <!--  container end -->
 </div>
 

@@ -40,7 +40,13 @@
                         <a href="${root}/notice">공지사항</a>
                     </li>
                     <li>
-                        <a href="${root}/erp/">SunnyERP</a>
+                        <a href="${root}/erp">SunnyERP</a>
+                    </li>
+                    <li>
+                        <a href="${root}/login">로그인</a>
+                    </li>
+                    <li>
+                        <a href="${root}/join">회원가입</a>
                     </li>
                 </ul>
             </div>
