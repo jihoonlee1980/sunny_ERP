@@ -22,18 +22,39 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+	@RequestMapping(value = "/")
+	public String main() {
+		return "tempLayout";
+	}
+	
+	@RequestMapping(value = "/ceo")
+	public String ceoSunny() {
+		return "/1/menu/ceo_sunny";
+	}
+	
+	@RequestMapping(value = "/company")
+	public String company() {
+		return "/1/menu/company";
+	}
+	
+	@RequestMapping(value = "/product")
+	public String product() {
+		return "/1/menu/product";
+	}
+	
+	@RequestMapping(value = "/event")
+	public String event() {
+		return "/1/menu/event";
+	}
+	
+	@RequestMapping(value = "/notice")
+	public String notice() {
+		return "/1/menu/notice";
+	}
+	
+	@RequestMapping(value = "/erp/")
+	public String erpMain() {
+		return "/2/erp/main";
 	}
 	
 }
