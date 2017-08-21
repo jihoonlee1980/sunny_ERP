@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com">
+	<insert id="insertNotice" parameterType="com.menu.model.NoticeDTO">
+		insert into erp_board(writer, subject, content, readcount, writeday, delim) values(#{writer}, #{subject}, #{content}, 0, now(), 2)
+	</insert>
+	<update id="updateNotice" parameterType="com.menu.model.NoticeDTO">
+		update erp_board set subject = #{subject}, content = #{content} where num = #{num}
+	</update>
+	<delete id="deleteNotice" parameterType="int">
+		delete from erp_board where num = #{num}
+	</delete>
+	<select id="noticeCount" resultType="int">
+		select count(*) from erp_board where delim = 2
+	</select>
+	<select id="noticeList" resultType="com.menu.model.NoticeDTO">
+		select * from erp_board where delim=2 order by writeday desc limit #{start} , #{perpage}
+	</select>
+	<select id="noticeContent" resultType="com.menu.model.NoticeDTO" parameterType="int">
+		select * from erp_board where num = #{num}
+	</select>
+</mapper>

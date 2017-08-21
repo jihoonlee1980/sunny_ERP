@@ -32,5 +32,13 @@
 	<bean id="eventBoardDAO" class="com.menu.model.EventBoardDAO">
 		<property name="sqlSessionTemplate" ref="mysqlSessionTemplate" />
 	</bean>
+	
+	<bean id="memberDAO" class="com.menu.model.MemberDAO">
+		<property name="sqlSessionTemplate" ref="mysqlSessionTemplate" />
+	</bean>
+	
+	<bean id="noticeDAO" class="com.menu.model.NoticeDAO">
+		<property name="sqlSessionTemplate" ref="mysqlSessionTemplate" />
+	</bean>
 
 </beans>

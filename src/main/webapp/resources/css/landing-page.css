@@ -140,7 +140,13 @@ h6 {
 .event_banner {
 	padding: 150px 0;
     color: #f8f8f8;
-    background: url(../img/main/product2.jpg) no-repeat 2% 33%;
+    background: url(../img/main/balloons.jpg) no-repeat 2% 5%;
+    background-size: cover;
+}
+.notice_banner {
+	padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/main/point.jpg) no-repeat 2% -10%;
     background-size: cover;
 }
 .banner h2 {

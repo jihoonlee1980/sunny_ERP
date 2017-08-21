@@ -3,10 +3,14 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.menu.model.EventBoardDTO" alias="eventBoardDTO" />
+<!-- 		<typeAlias type="com.menu.model.EventBoardDTO" alias="eventBoardDTO" /> -->
+<!-- 		<typeAlias type="com.menu.model.MemberDTO" alias="memberDTO" /> -->
+<!-- 		<typeAlias type="com.menu.model.NoticeDTO" alias="noticeDTO" /> -->
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="spring/EventBoardSQL.xml" />
+		<mapper resource="spring/MemberSQL.xml" />
+		<mapper resource="spring/NoticeSQL.xml" />
 	</mappers>
 </configuration>

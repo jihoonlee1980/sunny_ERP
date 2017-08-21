@@ -1,3 +1,4 @@
+<%@page import="com.menu.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -43,7 +44,12 @@
                         <a href="${root}/erp">SunnyERP</a>
                     </li>
                     <li>
-                        <a href="${root}/login">로그인</a>
+                    	<c:if test="${login eq null }">
+                        	<a href="${root}/login">로그인</a>
+                        </c:if>
+                        <c:if test="${login ne null }">
+                        	<a href="/logout">로그아웃</a>
+                        </c:if>
                     </li>
                     <li>
                         <a href="${root}/join">회원가입</a>

@@ -89,25 +89,16 @@
                     
                     
                     <center>		
-					<div id="post_content">
-						
-						<!-- <iframe id="map" width="100%" height="100%" 
-						frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe> -->
-						
-						<div id="map" style="width: 260px; height: 300px;"></div>
-					</div>
-					<br>
-				
-            
-                    
-                    <center>
-                
-                <caption><b style="font-size: 14pt;color:gray;">Originated by Daum Maps</b></caption><br>
-                
-                
-                </center>
-				</center>
-
+						<div id="post_content">
+							<!-- <iframe id="map" width="100%" height="100%" 
+							frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe> -->
+							<div id="map" style="width: 260px; height: 300px;"></div>
+						</div>
+						<br>
+                    	<center>
+	                		<caption><b style="font-size: 14pt;color:gray;">Originated by Daum Maps</b></caption><br>
+	                	</center>
+					</center>
 				<script type="text/javascript"
 					src="//apis.daum.net/maps/maps3.js?apikey=5cd4ad3ec7ff604b1698e2754ffb0b64&libraries=services"></script>
 				<script>

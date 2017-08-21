@@ -86,17 +86,17 @@
         	<h1 style="margin:50px 0;" >무료 부가 서비스</h1>			
 			<div class="sigma-row">
 	        	<div class="sigma-content col-lg-3 col-md-6 sigma-bg-lightgray text-center">
-	            	<span class="sigma-icon fa fa-power-off"><img src="${root}/img/main/product_1.png" width="20%"></span>
+	            	<span class="sigma-icon fa fa-bell"></span>
 	                <h2>알림</h2>
 	            	<p>알림기능</p>
 	            </div>
 	            <div class="sigma-content col-lg-3 col-md-6 sigma-bg-gray text-center">
-	            	<span class="sigma-icon fa fa-bolt"><img src="${root}/img/main/product_2.png" width="20%"></span>
+	            	<span class="sigma-icon fa fa-send"></span>
 	            	<h2>쪽지</h2>
 	            	<p>쪽지기능</p>
 	            </div>
 	            <div class="sigma-content col-lg-3 col-md-6 sigma-bg-darkgray text-center">
-	            	<span class="sigma-icon fa fa-thumbs-up"><img src="${root}/img/main/product_3.png" width="20%"></span>
+	            	<span class="sigma-icon fa fa-window-maximize"></span>
 	            	<h2>모바일 App</h2>
 	            	<p>모바일 App</p>
 	            </div>	           
