@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class EventBoardDTO {
 	int num, readcount;
-	String writer, subject, category, content, filename;
+	String writer, subject, category, content, origin_filename, saved_filename;
 	Timestamp writeday;
 	MultipartFile attached_file;
 
@@ -58,12 +58,20 @@ public class EventBoardDTO {
 		this.content = content;
 	}
 
-	public String getFilename() {
-		return filename;
+	public String getOrigin_filename() {
+		return origin_filename;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setOrigin_filename(String origin_filename) {
+		this.origin_filename = origin_filename;
+	}
+
+	public String getSaved_filename() {
+		return saved_filename;
+	}
+
+	public void setSaved_filename(String saved_filename) {
+		this.saved_filename = saved_filename;
 	}
 
 	public Timestamp getWriteday() {

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ page session="false"%>
+<%@ page session="true"%>
 <c:set var="root_" value="<%=request.getContextPath() %>" />
 <c:set var="root" value="${root_}/resources" />
 <style>
@@ -80,9 +80,11 @@ div.radio-inline input{
 						</c:if>
 					</ul>
 				</div>
-				<div align="right">
-					<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#write" data-original-title>글쓰기</a>
-				</div>
+				<c:if test="${login eq 'admin'}">
+					<div align="right">
+						<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#write" data-original-title>글쓰기</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 			

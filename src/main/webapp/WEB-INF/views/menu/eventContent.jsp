@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ page session="false"%>
+<%@ page session="true"%>
 <c:set var="root_" value="<%=request.getContextPath() %>" />
 <c:set var="root" value="${root_}/resources" />
 <style>
@@ -84,7 +84,7 @@
 	            </div>
 	            <hr style="height: 2px; background: #777; width: 100%;">
 				<div class="content-div" style="width: 30%;">
-                   	<img src="${root }/img/event/${eventContent.filename}" width="100%">
+                   	<img src="${root }/img/event/${eventContent.saved_filename}" width="100%">
 				</div>
 				<div class="content-div" style="width: 70%;">
 					<p style="margin-left: 20px;">
@@ -93,11 +93,18 @@
 				</div>
 				<div class="row" style="margin: 0 auto; width: 100%; display: inline-block;">
 					<div class="content-div" style="width: 30%; text-align: center;">
-						<a href="/event/download?num=${eventContent.num }">다운로드 : ${eventContent.filename }</a>
+						<c:if test="${not empty login}">
+							<a href="/event/download?num=${eventContent.num }">다운로드 : ${eventContent.origin_filename }</a>
+						</c:if>
+						<c:if test="${empty login }">
+							<span>다운로드 : ${eventContent.origin_filename }</span>
+						</c:if>
 					</div>
 					<div class="content-div" style="width: 70%;  text-align: right;">
-					    <a class="btn btn-warning btn-responsive btn-sm" id="updateModal" data-toggle="modal" data-target="#update" onClick="javascript:updateModal('${param.num}');">수정</a>
-	       				<a class="btn btn-danger btn-responsive btn-sm" href="/event/delete?num=${param.num }&page=${param.page}" onclick="return deleteCehck();">삭제</a>
+						<c:if test="${login eq eventContent.writer}">
+						    <a class="btn btn-warning btn-responsive btn-sm" id="updateModal" data-toggle="modal" data-target="#update" onClick="javascript:updateModal('${param.num}');">수정</a>
+		       				<a class="btn btn-danger btn-responsive btn-sm" href="/event/delete?num=${param.num }&page=${param.page}" onclick="return deleteCehck();">삭제</a>
+	       				</c:if>
 	       				<a class="btn btn-default btn-responsive btn-sm" href="/event?page=${param.page }">목록</a>
        				</div>
 				</div>

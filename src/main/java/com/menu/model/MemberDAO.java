@@ -31,4 +31,12 @@ public class MemberDAO extends SqlSessionDaoSupport {
 
 		return getSqlSession().selectOne("loginMember", map);
 	}
+
+	public int checkMemberID(String id) {
+		return getSqlSession().selectOne("checkMemberID", id);
+	}
+	
+	public int checkMemberFilename(String id) {
+		return getSqlSession().selectOne("checkMemberFilename", id);
+	}
 }

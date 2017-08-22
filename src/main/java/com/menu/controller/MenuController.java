@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -82,14 +83,26 @@ public class MenuController {
 	@RequestMapping(value = "/event/insert", method = RequestMethod.POST)
 	public String evnetInsert(EventBoardDTO eventBoardDTO) {
 		MultipartFile attacehd_file = eventBoardDTO.getAttached_file();
-		String fileName = attacehd_file.getOriginalFilename();
 
-		String eventPath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
+		if (!"".equals(attacehd_file.getOriginalFilename())) {
+			String originFileName = attacehd_file.getOriginalFilename();
+			String extension = originFileName.substring(originFileName.lastIndexOf("."));
+			String eventPath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
+			// String eventPath =
+			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event";
+			String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
+					+ extension;
 
-		UploadFileWriter uploadFileWriter = new UploadFileWriter();
-		uploadFileWriter.writeFile(attacehd_file, eventPath, fileName);
+			while (eventBoardDAO.checkEventFilename(saveFileName) > 0) {
+				saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000;
+			}
 
-		eventBoardDTO.setFilename(fileName);
+			eventBoardDTO.setOrigin_filename(originFileName);
+			eventBoardDTO.setSaved_filename(saveFileName);
+
+			UploadFileWriter uploadFileWriter = new UploadFileWriter();
+			uploadFileWriter.writeFile(attacehd_file, eventPath, saveFileName);
+		}
 
 		eventBoardDAO.insert(eventBoardDTO);
 
@@ -97,10 +110,15 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/event/content")
-	public ModelAndView evnetContent(@RequestParam(value = "num", required = true) int num) {
-		eventBoardDAO.updateReadCount(num);
-
+	public ModelAndView evnetContent(@RequestParam(value = "num", required = true) int num, HttpSession session) {
+		String loginID = (String) session.getAttribute("login");
 		EventBoardDTO eventBoardDTO = eventBoardDAO.get(num);
+
+		if (!eventBoardDTO.getWriter().equals(loginID)) {
+			eventBoardDAO.updateReadCount(num);
+			eventBoardDTO = eventBoardDAO.get(num);
+		}
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("eventContent", eventBoardDTO);
@@ -124,17 +142,30 @@ public class MenuController {
 	@RequestMapping(value = "/event/update")
 	public String eventUpdate(EventBoardDTO eventBoardDTO, @RequestParam(value = "page", defaultValue = "1") int page) {
 		if (eventBoardDTO.getAttached_file().getOriginalFilename().equals("")) {
-			eventBoardDTO.setFilename(eventBoardDAO.get(eventBoardDTO.getNum()).getFilename());
+			eventBoardDTO.setOrigin_filename(eventBoardDAO.get(eventBoardDTO.getNum()).getOrigin_filename());
+			eventBoardDTO.setSaved_filename(eventBoardDAO.get(eventBoardDTO.getNum()).getSaved_filename());
 		} else {
 			MultipartFile attacehd_file = eventBoardDTO.getAttached_file();
-			String fileName = attacehd_file.getOriginalFilename();
 
-			String eventPath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
+			if (!"".equals(attacehd_file.getOriginalFilename())) {
+				String originFileName = attacehd_file.getOriginalFilename();
+				String extension = originFileName.substring(originFileName.lastIndexOf("."));
+				String eventPath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
+				// String eventPath =
+				// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event";
+				String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
+						+ extension;
 
-			UploadFileWriter uploadFileWriter = new UploadFileWriter();
-			uploadFileWriter.writeFile(attacehd_file, eventPath, fileName);
+				while (eventBoardDAO.checkEventFilename(saveFileName) > 0) {
+					saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000;
+				}
 
-			eventBoardDTO.setFilename(fileName);
+				eventBoardDTO.setOrigin_filename(originFileName);
+				eventBoardDTO.setSaved_filename(saveFileName);
+
+				UploadFileWriter uploadFileWriter = new UploadFileWriter();
+				uploadFileWriter.writeFile(attacehd_file, eventPath, saveFileName);
+			}
 		}
 		eventBoardDAO.update(eventBoardDTO);
 
@@ -154,15 +185,19 @@ public class MenuController {
 			throws Exception {
 		EventBoardDTO eventBoardDTO = eventBoardDAO.get(num);
 		// String storedFileName = (String) map.get("STORED_FILE_NAME");
-		String fileName = eventBoardDTO.getFilename();
+		String saved_fileName = eventBoardDTO.getSaved_filename();
 
-		byte fileByte[] = FileUtils.readFileToByteArray(
-				new File("C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\" + fileName));
+		byte fileByte[] = FileUtils.readFileToByteArray(new File(
+				"C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\" + saved_fileName));
+		// byte fileByte[] = FileUtils.readFileToByteArray(
+		// new
+		// File("C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event"
+		// + saved_fileName));
 
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);
 		response.setHeader("Content-Disposition",
-				"attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
+				"attachment; fileName=\"" + URLEncoder.encode(saved_fileName, "UTF-8") + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.getOutputStream().write(fileByte);
 
@@ -206,10 +241,16 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/notice/content")
-	public ModelAndView noticeContent(@RequestParam(value = "num", required = true) int num) {
-		eventBoardDAO.updateReadCount(num);
+	public ModelAndView noticeContent(@RequestParam(value = "num", required = true) int num, HttpSession session) {
 
+		String loginID = (String) session.getAttribute("login");
 		NoticeDTO noticeDTO = noticeDAO.get(num);
+
+		if (!noticeDTO.getWriter().equals(loginID)) {
+			eventBoardDAO.updateReadCount(num);
+			noticeDTO = noticeDAO.get(num);
+		}
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("noticeContent", noticeDTO);
@@ -255,38 +296,60 @@ public class MenuController {
 		return "/1/menu/join";
 	}
 
+	@RequestMapping(value = "/join/id")
+	public @ResponseBody Map<String, Object> noticeID(@RequestParam(value = "id", required = true) String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isValid = true;
+
+		if (memberDAO.checkMemberID(id) > 0)
+			isValid = false;
+
+		map.put("isValid", isValid);
+
+		ModelAndView modelAndView = new ModelAndView("jsonView", map);
+
+		return map;
+	}
+
 	@RequestMapping(value = "/join/proc", method = RequestMethod.POST)
 	public String joinProc(MemberDTO memberDTO,
 			@RequestParam(value = "certification_key", required = false) String certification_key) {
-
 		MultipartFile profile_image_file = memberDTO.getProfile_image_file();
-		String profile_img = profile_image_file.getOriginalFilename();
 
-		memberDTO.setPorfile_image(profile_img);
+		if (!"".equals(profile_image_file.getOriginalFilename())) {
+			String originFileName = profile_image_file.getOriginalFilename();
+			String extension = originFileName.substring(originFileName.lastIndexOf("."));
+			String profilePath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+			// String profilePath =
+			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\profile";
+			String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
+					+ extension;
 
-		String profilePath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+			while (memberDAO.checkMemberFilename(saveFileName) > 0) {
+				saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000;
+			}
 
-		UploadFileWriter uploadFileWriter = new UploadFileWriter();
-		uploadFileWriter.writeFile(profile_image_file, profilePath, profile_img);
+			memberDTO.setOrigin_filename(originFileName);
+			memberDTO.setProfile_image(saveFileName);
+
+			UploadFileWriter uploadFileWriter = new UploadFileWriter();
+			uploadFileWriter.writeFile(profile_image_file, profilePath, saveFileName);
+		}
 
 		if (memberDAO.checkCertification_key(certification_key) > 0)
 			System.out.println(true);
 
 		memberDAO.insert(memberDTO);
 
-		return "redirect:/event";
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/login")
-	public ModelAndView loginForm(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		System.out.println(session.getAttribute("login"));
-
-		modelAndView.addObject("login", session.getAttribute("login"));
-		modelAndView.setViewName("/1/menu/login");
-
-		return modelAndView;
+	public String loginForm(HttpSession session) {
+		String returnURL = "/1/menu/login";
+		if (session.getAttribute("login") != null)
+			returnURL = "redirect:/";
+		return returnURL;
 	}
 
 	@RequestMapping(value = "/login/proc", method = RequestMethod.POST)
@@ -300,7 +363,6 @@ public class MenuController {
 		MemberDTO memberDTO = memberDAO.login(loginInfo);
 
 		if (memberDTO != null) {
-			System.out.println(memberDTO.getId());
 			session.setAttribute("login", memberDTO.getId());
 			returnURL = "redirect:/";
 		} else {

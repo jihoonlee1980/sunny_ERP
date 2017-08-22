@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com">
 	<insert id="insertEventBoard" parameterType="com.menu.model.EventBoardDTO">
-		insert into erp_board values(0, #{writer}, #{subject}, #{category}, #{content}, #{filename}, 0, now(), 1)
+		insert into erp_board values(0, #{writer}, #{subject}, #{category}, #{content}, #{origin_filename}, 0, now(), 1, #{saved_filename})
 	</insert>
 	<update id="updateEventBoard" parameterType="com.menu.model.EventBoardDTO">
-		update erp_board set subject = #{subject}, category = #{category}, content = #{content}, filename = #{filename} where num = #{num}
+		update erp_board set subject = #{subject}, category = #{category}, content = #{content}, origin_filename = #{origin_filename}, saved_filename = #{saved_filename} where num = #{num}
 	</update>
 	<delete id="deleteEventBoard" parameterType="int">
 		delete from erp_board where num = #{num}
@@ -21,5 +21,8 @@
 	</select>
 	<select id="eventBoardContent" resultType="com.menu.model.EventBoardDTO" parameterType="int">
 		select * from erp_board where num = #{num}
+	</select>
+	<select id="checkEventFilename" resultType="int" parameterType="String">
+		select count(*) from erp_board where delim=1 and saved_filename = #{saved_filename}
 	</select>
 </mapper>

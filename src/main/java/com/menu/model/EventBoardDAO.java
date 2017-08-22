@@ -36,4 +36,8 @@ public class EventBoardDAO extends SqlSessionDaoSupport {
 	public EventBoardDTO get(int num) {
 		return getSqlSession().selectOne("eventBoardContent", num);
 	}
+
+	public int checkEventFilename(String saved_filename) {
+		return getSqlSession().selectOne("checkEventFilename", saved_filename);
+	}
 }

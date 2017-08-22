@@ -6,6 +6,44 @@
 <%@ page session="false" %>
 <c:set var="root_" value="<%=request.getContextPath() %>"/>
 <c:set var="root" value="${root_}/resources"/>
+<script src="${root }/js/typed.js"></script>
+<style>
+	#typed-cursor{
+		font-size: 2em;
+		font-family: arial;
+		font-weight: 700;
+	}
+	.type{
+		font-size: 2em;
+		font-family: arial;
+		font-weight: 700;
+		color: #fcc447;
+/* 		background-color: #777; */
+	}
+	@media(max-width: 992px){
+		.type_div{
+			display: none;
+		}
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$(".type").typed({
+			strings : [
+				"SunnyFactory에 오신 것을 환영합니다.",
+				"SunnyERP는 언제, 어디서 든지",
+				"SunnyERP는 PC에서도 모바일에서도",
+				"SunnyERP는 똑같은 화면과 기능을 사용할 수 있습니다."
+			],
+			typeSpeed : 50,
+			backDelay : 2000,
+			loop : true
+		});
+	});
+</script>
+	<div class="type_div" style="position: absolute; z-index: 9999; width: 100%; text-align: center; top:10%;">
+	  	<span class="type"></span>
+	</div>
 <!-- Header -->
     <a name="about"></a>
 	<div id="mycarousel" class="carousel slide" data-ride="carousel">

@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MemberDTO {
 	int num;
-	String id, name, pass, company, hp, email, address, level, profile_image;
+	String id, name, pass, company, hp, email, address, level, profile_image, origin_filename;
 	MultipartFile profile_image_file;
 	Timestamp joindate;
 
@@ -86,8 +86,16 @@ public class MemberDTO {
 		return profile_image;
 	}
 
-	public void setPorfile_image(String profile_image) {
+	public void setProfile_image(String profile_image) {
 		this.profile_image = profile_image;
+	}
+
+	public String getOrigin_filename() {
+		return origin_filename;
+	}
+
+	public void setOrigin_filename(String origin_filename) {
+		this.origin_filename = origin_filename;
 	}
 
 	public MultipartFile getProfile_image_file() {

@@ -16,8 +16,8 @@
     <meta name="author" content="">
 
     <title>SunnyERP</title>
-    <link href="${root}/css/bootstrap.min.css?ver=5" rel="stylesheet">
-    <link href="${root}/css/landing-page.css?ver=5" rel="stylesheet">
+    <link href="${root}/css/bootstrap.min.css?ver=8" rel="stylesheet">
+    <link href="${root}/css/landing-page.css?ver=8" rel="stylesheet">
     <link href="${root}/css/font-awesome.min.css?ver=2" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <script src="${root}/js/jquery.js"></script>

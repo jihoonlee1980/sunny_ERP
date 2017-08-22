@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ page session="false"%>
+<%@ page session="true"%>
 <c:set var="root_" value="<%=request.getContextPath() %>" />
 <c:set var="root" value="${root_}/resources" />
 <style>
@@ -83,9 +83,11 @@
 					</p>
 				</div>
 				<div class="row" style="margin: 0 auto; width: 100%; display: inline-block; text-align: right;">
-				    <a class="btn btn-warning btn-responsive btn-sm" id="updateModal" data-toggle="modal" data-target="#update" onClick="javascript:updateModal('${param.num}');">수정</a>
-       				<a class="btn btn-danger btn-responsive btn-sm" href="/notice/delete?num=${param.num }&page=${param.page}" onclick="return deleteCehck();">삭제</a>
-       				<a class="btn btn-default btn-responsive btn-sm" href="/notice?page=${param.page }">목록</a>
+					<c:if test="${login eq noticeContent.writer}">
+					    <a class="btn btn-warning btn-responsive btn-sm" id="updateModal" data-toggle="modal" data-target="#update" onClick="javascript:updateModal('${param.num}');">수정</a>
+	       				<a class="btn btn-danger btn-responsive btn-sm" href="/notice/delete?num=${param.num }&page=${param.page}" onclick="return deleteCehck();">삭제</a>
+	       			</c:if>
+	       			<a class="btn btn-default btn-responsive btn-sm" href="/notice?page=${param.page }">목록</a>
 				</div>
 	        </div>
 		</div>

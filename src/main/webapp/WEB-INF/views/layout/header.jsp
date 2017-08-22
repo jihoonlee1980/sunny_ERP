@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 
     <!-- Navigation -->
@@ -41,9 +41,6 @@
                         <a href="${root}/notice">공지사항</a>
                     </li>
                     <li>
-                        <a href="${root}/erp">SunnyERP</a>
-                    </li>
-                    <li>
                     	<c:if test="${login eq null }">
                         	<a href="${root}/login">로그인</a>
                         </c:if>
@@ -51,9 +48,11 @@
                         	<a href="/logout">로그아웃</a>
                         </c:if>
                     </li>
-                    <li>
-                        <a href="${root}/join">회원가입</a>
-                    </li>
+                    <c:if test="${login eq null }">
+	                    <li>
+	                        <a href="${root}/join">회원가입</a>
+	                    </li>
+					</c:if>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com">
 	<insert id="insertMember" parameterType="com.menu.model.EventBoardDTO">
-		insert into erp_member values(0, #{id}, #{name}, #{pass}, #{company}, #{hp}, #{email}, #{address}, now(), #{level}, #{profile_image})
+		insert into erp_member values(0, #{id}, #{name}, #{pass}, #{company}, #{hp}, #{email}, #{address}, now(), #{level}, #{profile_image}, #{origin_filename})
 	</insert>
 	<select id="checkCertification_key" parameterType="String" resultType="int">
 		select count(*) from certification_key where certification_key = #{certification_key}
@@ -15,5 +15,11 @@
 	</select>
 	<select id="loginMember" parameterType="HashMap" resultType="com.menu.model.MemberDTO">
 		select * from erp_member where id = #{id} and pass = #{pass}
+	</select>
+	<select id="checkMemberFilename" resultType="int" parameterType="String">
+		select count(*) from erp_member where profile_image = #{profile_image}
+	</select>
+	<select id="checkMemberID" resultType="int" parameterType="String">
+		select count(*) from erp_member where id = #{id}
 	</select>
 </mapper>
