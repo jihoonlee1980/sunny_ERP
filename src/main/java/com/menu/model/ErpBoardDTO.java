@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class EventBoardDTO {
-	int num, readcount;
+public class ErpBoardDTO {
+	int num, readcount, delim, comment_count;
 	String writer, subject, category, content, origin_filename, saved_filename;
 	Timestamp writeday;
 	MultipartFile attached_file;
@@ -24,6 +24,22 @@ public class EventBoardDTO {
 
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
+	}
+
+	public int getComment_count() {
+		return comment_count;
+	}
+
+	public int getDelim() {
+		return delim;
+	}
+
+	public void setDelim(int delim) {
+		this.delim = delim;
+	}
+
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}
 
 	public String getWriter() {

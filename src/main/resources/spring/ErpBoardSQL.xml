@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com">
+	<insert id="insertErpBoard" parameterType="com.menu.model.ErpBoardDTO">
+		insert into erp_board values(0, #{writer}, #{subject}, #{category}, #{content}, #{origin_filename}, 0, now(), #{delim}, #{saved_filename}, 0)
+	</insert>
+	
+	<update id="updateReadCount" parameterType="int">
+		update erp_board set readcount = readcount + 1 where num = #{num}
+	</update>
+
+	<update id="updateEvent" parameterType="com.menu.model.ErpBoardDTO">
+		update erp_board set subject = #{subject}, category = #{category}, content = #{content}, origin_filename = #{origin_filename}, saved_filename = #{saved_filename} where num = #{num}
+	</update>	
+	<update id="updateNotice" parameterType="com.menu.model.ErpBoardDTO">
+		update erp_board set subject = #{subject}, content = #{content} where num = #{num}
+	</update>
+
+	<delete id="deleteErpBoard" parameterType="int">
+		delete from erp_board where num = #{num}
+	</delete>	
+	
+	<select id="erpBoardContent" resultType="com.menu.model.ErpBoardDTO" parameterType="int">
+		select * from erp_board where num = #{num}
+	</select>
+	
+	<select id="erpBoardCount" parameterType="int" resultType="int">
+		select count(*) from erp_board where delim = #{delim}
+	</select>	
+	
+	<select id="erpBoardList" resultType="com.menu.model.ErpBoardDTO" parameterType="HashMap">
+		select * from erp_board where delim=#{delim} order by writeday desc limit #{start} , #{perpage}
+	</select>
+	
+	<select id="checkFilename" resultType="int" parameterType="String">
+		select count(*) from erp_board where delim=1 and saved_filename = #{saved_filename}
+	</select>
+	
+	<update id="updateCommentCount" parameterType="HashMap">
+		update erp_board set comment_count = comment_count + #{countValue} where num = #{num}
+	</update>
+</mapper>

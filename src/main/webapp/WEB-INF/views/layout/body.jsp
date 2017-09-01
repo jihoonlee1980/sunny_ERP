@@ -41,7 +41,7 @@
 		});
 	});
 </script>
-	<div class="type_div" style="position: absolute; z-index: 9999; width: 100%; text-align: center; top:10%;">
+	<div class="type_div" style="position: absolute; z-index: 9999; width: 100%; text-align: center; top:50%;">
 	  	<span class="type"></span>
 	</div>
 <!-- Header -->
@@ -121,7 +121,7 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Vision(비젼)</h2><br>
                     <p class="lead">
-                    	<span style="color: #23527c">Sunny Erp(써니 이알피)</span>는
+                    	<span style="color: #23527c">SunnyERP(써니 이알피)</span>는
                     	<br><br>
                     	누구나 손쉽게 사용하고, <br>실용성이 있는<br>현업 사용자가 직접 개발한<br><br>
                     	중소기업에 맞는, <br> 최적화  클라우드(Cloud) 서비스!!!<br><br>
@@ -142,9 +142,9 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">똑똑하고 쉬운 ERP <br>그리고 컨텐츠</h2><br>
+                    <h2 class="section-heading">똑똑하고 쉬운 ERP<br>그리고 컨텐츠</h2><br>
                     <p class="lead">기존의 ERP와는 다른  <span style="color: #23527c">특별함!</span><br>
-                    	<br>Sunny Erp 만의 <br> 특별함으로 다가갑니다.
+                    	<br>SunnyERP만의 <br> 특별함으로 다가갑니다.
                     </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
@@ -163,8 +163,8 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">All in One</h2><br>
                     <p class="lead">
-                    	 <span style="color: #23527c">회사 Homepage 와 클라우드 Erp</span><br>
-                    	 <span style="color: #23527c">안드로이드 App 과 카메라 IoT</span><br><br>모두 구축해 드리고<br>한 번에 사용하실 수 있습니다.
+                    	 <span style="color: #23527c">회사 HOMEPAGE와 클라우드 ERP</span><br>
+                    	 <span style="color: #23527c">안드로이드 APP과 카메라 IoT까지</span><br><br>모두 구축해 드리고<br>한 번에 사용하실 수 있습니다.
                     </p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">

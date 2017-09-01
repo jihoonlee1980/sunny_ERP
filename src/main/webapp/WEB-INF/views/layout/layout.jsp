@@ -16,14 +16,19 @@
     <meta name="author" content="">
 
     <title>SunnyERP</title>
-    <link href="${root}/css/bootstrap.min.css?ver=8" rel="stylesheet">
-    <link href="${root}/css/landing-page.css?ver=8" rel="stylesheet">
+    <link href="${root}/css/bootstrap.min.css?ver=12" rel="stylesheet">
+    <link href="${root}/css/landing-page.css?ver=13" rel="stylesheet">
     <link href="${root}/css/font-awesome.min.css?ver=2" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <script src="${root}/js/jquery.js"></script>
+    <script src="${root}/js/jquery-3.2.1.js"></script>
     <script src="${root}/js/bootstrap.min.js"></script>
-    <script	src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <!-- sweet alert -->
+    <script src="${root }/js/sweetalert.min.js"></script>
+    <link href="${root }/css/sweetalert.css" rel="stylesheet">
+<%--     <link href="${root }/css/timeline.css?ver=2" rel="stylesheet"> --%>
+    <!-- comment(comment style) -->
+    <link href="${root }/css/comment.css?ver=7" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">

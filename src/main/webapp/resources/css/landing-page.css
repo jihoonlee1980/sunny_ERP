@@ -140,7 +140,7 @@ h6 {
 .event_banner {
 	padding: 150px 0;
     color: #f8f8f8;
-    background: url(../img/main/balloons.jpg) no-repeat 2% 5%;
+    background: url(../img/main/festival.jpg) no-repeat 2% 30%;
     background-size: cover;
 }
 .notice_banner {
@@ -149,6 +149,32 @@ h6 {
     background: url(../img/main/point.jpg) no-repeat 2% -10%;
     background-size: cover;
 }
+.login_banner {
+	padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/main/lock.jpg) no-repeat 2% 75%;
+    background-size: cover;
+}
+.join_banner {
+	padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/main/shaking_hand.jpg) no-repeat 2% 22%;
+    background-size: cover;
+}
+.mypage_banner {
+	padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/main/pencil.jpg) no-repeat 2% 70%;
+    background-size: cover;
+}
+
+.admin_banner {
+	padding: 150px 0;
+    color: #f8f8f8;
+    background: url(../img/main/sunflower.jpg) no-repeat 2% 43%;
+    background-size: cover;
+}
+
 .banner h2 {
     margin: 0;
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);

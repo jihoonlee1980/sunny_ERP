@@ -26,7 +26,7 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">History(연혁)</h2><br>
-                    <p class="lead"><a target="_blank" href="http://factorysunny.com/">Sunny Factory</a>(써니 팩토리)는
+                    <p class="lead"><a target="_blank" href="http://factorysunny.com/">써니 팩토리</a>(Sunny Factory)는
                     <br><br>
                     2017. 04. 08<br>
                     	설립 되었습니다.<br><br></p>
@@ -51,12 +51,12 @@
                     <h5>1) 상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호 : 써니팩토리(Sunny Factory)<br><br><br>
                     2) 대표자 : 이지훈(JiHoon Lee)<br><br><br>
                     3) 업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태 : <br>출판, 영상, 방송통신 및 정보서비스업<br><br><br>
-                    4) 업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;종 : <br>온라인 모바일 게임소프트웨어 개발 및 공급업,<br>기타 게임소프트웨어 개발 및 공급업 
-                    <br>응용소프트웨어 개발 및 공급업,<br>시스템                  
+                    4) 업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;종 : <br>온라인 모바일 게임소프트웨어 개발 및 공급업<br>기타 게임소프트웨어 개발 및 공급업 
+                    <br>응용소프트웨어 개발 및 공급업<br>시스템                  
                     <br><br><br>
-                    5) 개&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;발 : ios, android, web, IoT<br><br><br>
-                    6)<a target="_blank" href="http://factorysunny.com/"> http://factorysunny.com/</a><br><br><br>
-                   7)<a href="mailto:seun80@hanmail.net"> seun80@hanmail.net</a><br>
+                    5) 개&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;발 : ios, Android WEB, IOT<br><br><br>
+                    6) 홈페이지 : <a target="_blank" href="http://factorysunny.com/"> http://factorysunny.com/</a><br><br><br>
+                    7) E-mail :<a href="mailto:seun80@hanmail.net"> seun80@hanmail.net</a><br>
                    </h5>
                 </div><br>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
@@ -86,8 +86,6 @@
                 <br><br>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <!-- <img class="img-responsive" src="resources/photo/photo3.png" alt=""> -->
-                    
-                    
                     <center>		
 						<div id="post_content">
 							<!-- <iframe id="map" width="100%" height="100%" 

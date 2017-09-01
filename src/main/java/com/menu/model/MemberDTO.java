@@ -5,8 +5,9 @@ import java.sql.Timestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MemberDTO {
-	int num;
-	String id, name, pass, company, hp, email, address, level, profile_image, origin_filename;
+	int num, login_fail_count, authority;
+	String id, name, pass, company, hp, email, address, level, saved_filename, origin_filename, is_account_lock,
+			postcode, detailed_address, lock_reason;
 	MultipartFile profile_image_file;
 	Timestamp joindate;
 
@@ -16,6 +17,14 @@ public class MemberDTO {
 
 	public void setNum(int num) {
 		this.num = num;
+	}
+
+	public int getLogin_fail_count() {
+		return login_fail_count;
+	}
+
+	public void setLogin_fail_count(int login_fail_count) {
+		this.login_fail_count = login_fail_count;
 	}
 
 	public String getId() {
@@ -82,12 +91,12 @@ public class MemberDTO {
 		this.level = level;
 	}
 
-	public String getProfile_image() {
-		return profile_image;
+	public String getSaved_filename() {
+		return saved_filename;
 	}
 
-	public void setProfile_image(String profile_image) {
-		this.profile_image = profile_image;
+	public void setSaved_filename(String saved_filename) {
+		this.saved_filename = saved_filename;
 	}
 
 	public String getOrigin_filename() {
@@ -96,6 +105,46 @@ public class MemberDTO {
 
 	public void setOrigin_filename(String origin_filename) {
 		this.origin_filename = origin_filename;
+	}
+
+	public String getIs_account_lock() {
+		return is_account_lock;
+	}
+
+	public void setIs_account_lock(String is_account_lock) {
+		this.is_account_lock = is_account_lock;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getDetailed_address() {
+		return detailed_address;
+	}
+
+	public void setDetailed_address(String detailed_address) {
+		this.detailed_address = detailed_address;
+	}
+
+	public String getLock_reason() {
+		return lock_reason;
+	}
+
+	public void setLock_reason(String lock_reason) {
+		this.lock_reason = lock_reason;
+	}
+
+	public int getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(int authority) {
+		this.authority = authority;
 	}
 
 	public MultipartFile getProfile_image_file() {

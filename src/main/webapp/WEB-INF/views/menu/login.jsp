@@ -4,17 +4,129 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ page session="false"%>
+<%@ page session="true"%>
 <c:set var="root_" value="<%=request.getContextPath() %>" />
 <c:set var="root" value="${root_}/resources" />
 <!-- Header -->
-<div class="banner company_banner">
+<script type="text/javascript">
+	function loginCheck(){
+		var check = true;
+		
+		if($("#id").val() == ""){
+			swal({
+				title : "",
+				text : "ID가 공백입니다.",
+				type : "warning",
+				confirmButtonText: "확인"
+			});
+			check = false;
+		}
+		
+		if($("#pass").val() == ""){
+			swal({
+				title : "",
+				text : "비밀번호가 공백입니다.",
+				type : "warning",
+				confirmButtonText: "확인"
+			});
+			check = false;
+		}
+		
+		if($("#isSave").is(":checked")){
+        	$("#saveID").val("YES");
+        }else{
+        	$("#saveID").val("");
+        }
+		
+		return check;
+	}
+	
+
+	function findPass() {
+		swal({
+			title : "비밀번호 찾기",
+			text : "아이디를 입력해 주세요.\n회원가입시 등록한 이메일로 비밀번호가 발송됩니다.",
+			type : "input",
+			showCancelButton : true,
+			closeOnConfirm : false,
+			animation : "slide-from-top",
+			inputPlaceholder : "아이디"
+		}, function(inputValue) {
+			var idCheck = true;
+			var email;
+			
+			if (inputValue === false)
+				return false;
+
+			if (inputValue === "") {
+				swal.showInputError("아이디를 써주세요!");
+				return false
+			}
+			
+			$.ajax({
+				url : "/sendmail",
+				type : "get",
+				data : {"id" : inputValue},
+				dataType : "json",
+				async: false,
+				success : function(data){
+					idCheck = data.isValid;
+					email = data.email;
+				},
+				statusCode : {
+					404 : function() {
+						alert("해당 데이터 존재X");
+					},
+					500 : function() {
+						alert("서버 혹은 문법적 오류");
+					}
+				}
+			});
+			
+			if (idCheck){
+				swal.showInputError("아이디가 틀렸거나 메일 발송중 문제가 생겼습니다.");
+				return false;
+			}
+			
+			swal("메일발송", email + "로\n메일이 발송되었습니다.", "success");
+		});
+	}
+</script>
+ <c:if test="${not empty result }">
+   	<c:if test="${result == 2 }">
+   		<script type="text/javascript">
+   			swal({
+   				title : "일치하는 정보가 없습니다!",
+   				text : "ID나 비밀번호를 확인해 주세요.<br><a href='/join'>아직 회원이 아니시라면 지금 가입하세요!<a>",
+   				type : "error",
+   				html : true,
+   				confirmButtonText: "확인"
+   			});
+   		</script>
+   	</c:if>
+</c:if>
+<c:if test="${not empty result }">
+   	<c:if test="${result == 3 }">
+   		<script type="text/javascript">
+   			swal({
+   				title : "로그인 거부",
+   				text : "관리자에게 문의하세요.&nbsp\;<a href='mailto:seun80@hanmail.net'>메일 보내기</a>",
+   				type : "warning",
+   				confirmButtonText: "확인",
+   				html : true
+   			});
+   		</script>
+   	</c:if>
+</c:if>
+<div class="banner login_banner">
 	<div class="container">
 		<div class="row">
+			<div class="col-lg-6">
+				<h2>로그인</h2>
+			</div>
 		</div>
 	</div>
 </div>
-
 <div class="content-section-a">
 	<div class="container">
 		<div class="row" style="margin:0;">
@@ -25,30 +137,50 @@
 		    <hr class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12" />
 		
 		    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-		        <form class="" action="/login/proc" autocomplete="off" method="post">
+		        <form class="" action="/login/proc" autocomplete="off" method="post" onsubmit="return loginCheck();">
 		            <div class="input-group">
 		                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-		                <input type="text" class="form-control" name="id" placeholder="아이디">
+		                <c:choose>
+		                	<c:when test="${not empty loginID }">
+		                		<input type="text" class="form-control" id="id" name="id" placeholder="아이디" value="${loginID }" autofocus="autofocus">
+		                	</c:when>
+		                	<c:when test="${empty loginID}">
+		                		<c:choose>
+		                			<c:when test="${isSave eq 'YES' }">
+		                				<input type="text" class="form-control" id="id" name="id" placeholder="아이디" value="${loggedInID }" autofocus="autofocus">		                				
+		                			</c:when>
+		                			<c:otherwise>
+		                				<input type="text" class="form-control" id="id" name="id" placeholder="아이디" autofocus="autofocus">
+		                			</c:otherwise>
+		                		</c:choose>
+		                	</c:when>
+		                </c:choose>
 		            </div>
 		            <span class="help-block"></span>
 		            <div class="input-group">
 		                <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-		                <input type="password" class="form-control" name="pass" placeholder="비밀번호">
+		                <input type="password" id="pass" class="form-control" name="pass" placeholder="비밀번호">
 		            </div>
-		            <span class="help-block"></span>
+		            <span class="help-block" style="padding-left: 2%; color: red;">
+		            	<c:if test="${not empty result }">
+		            		<c:if test="${result == 1 }">
+		            			비밀번호를 ${failCount }회 틀렸습니다.
+		            		</c:if>
+		            	</c:if>
+		            </span>
 		            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+		            <input type="hidden" id="saveID" name="saveID">
 		        </form>
 		    </div>
-
 		    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
 		        <div class="col-xs-6 col-sm-6">
 		            <label class="checkbox" style="margin-left: 5px;">
-		                <input type="checkbox" value="remember-me">로그인 정보 기억
+		                <input type="checkbox" id="isSave" ${isSave eq 'YES' ? "checked" : "" }>ID 기억하기
 		            </label>
 		        </div>
 		        <div class="col-xs-6 col-sm-6" style="margin-top: 10px;">
 		            <p class="pull-right">
-		                <a href="/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">비밀번호 찾기</a>
+		                <a href="/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;" onclick="findPass()">비밀번호 찾기</a>
 		            </p>
 		        </div>
 		    </div>

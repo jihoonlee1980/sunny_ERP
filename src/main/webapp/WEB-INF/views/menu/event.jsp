@@ -15,14 +15,19 @@ a.list-group-item {
 a.list-group-item.active small {
     color:#fff;
 }
-.stars {
-    margin:20px auto 1px;    
-}
 div.radio-inline input{
 	color: #555;
 	font-weight: 600;
 }
 </style>
+<script type="text/javascript">
+	$(function(){
+		document.getElementById("list_div").oncontextmenu = function(e){
+			swal("", "우클릭은 제한되어 있습니다.", "warning", "확인");
+			return false;
+		}
+	});
+</script>
 <!-- Header -->
 <div class="banner event_banner">
 	<div class="container">
@@ -35,20 +40,21 @@ div.radio-inline input{
 </div>
 <div class="content-section-a">
 	<div class="container">
-		<div class="event-row">
+		<div class="event-row" id="div_event">
 			<div class="well">
 		        <h1 class="text-center">행사 소식</h1>
-		        <div class="list-group">
+		        <div class="list-group" id="list_div">
 		        	<c:if test="${totalCount > 0 }">
-			        	<c:forEach items="${eventList}" var="item">
+			        	<c:forEach items="${eventList}" var="item" varStatus="status">
 			        		<a href="/event/content?num=${item.num }&page=${currentPage}" class="list-group-item">
+<%-- 							<a href="/event/${item.num }?page=${currentPage}" class="list-group-item"> --%>
 			                	<div class="media col-md-3" style="margin-top: 2%">
 				                    <figure class="pull-left">
 			                        	<img class="media-object img-rounded img-responsive" src="${root}/img/event/${item.saved_filename}" alt="${item.subject}" style="max-height: 180px; max-width: 250px;">
 			                    	</figure>
 			                	</div>
 			                	<div class="col-md-6" style="margin-top: 2%">
-				                    <h4 class="list-group-item-heading"><span style="font-size: 10pt; font-weight: 600; color: #e69b0b">[${item.category }]&nbsp;&nbsp;&nbsp;</span><c:out value="${item.subject}"/></h4>
+				                    <h4 class="list-group-item-heading"><span style="font-size: 10pt; font-weight: 600; color: #e69b0b">[${item.category }]&nbsp;&nbsp;&nbsp;</span><c:out value="${item.subject}"/><span style="font-size: 10pt; font-weight: 600; color: red">&nbsp;&nbsp;&nbsp;[ ${item.comment_count } ]</span></h4>
 			                    	<hr style="width: 100%; height: 2px; background: #777; margin-top: 5px 5px;">
 			                    	<p class="list-group-item-text"> <c:out value="${item.content}"/> </p>
 			                	</div>
@@ -85,10 +91,12 @@ div.radio-inline input{
 						</c:if>
 					</ul>
 				</div>
-				<c:if test="${login eq 'admin'}">
-					<div align="right">
-						<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#write" data-original-title>글쓰기</a>
-					</div>
+				<c:if test="${not empty isLogin }">
+					<c:if test="${loggedInID eq 'admin'}">
+						<div align="right">
+							<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#write" data-original-title>글쓰기</a>
+						</div>
+					</c:if>
 				</c:if>
 			</div>
 		</div>

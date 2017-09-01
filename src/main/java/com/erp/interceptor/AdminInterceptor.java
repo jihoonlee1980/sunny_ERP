@@ -4,23 +4,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+import com.menu.model.MemberDAO;
+import com.menu.model.MemberDTO;
+
+@Controller
+public class AdminInterceptor extends HandlerInterceptorAdapter {
+	@Autowired
+	MemberDAO memberDAO;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		Object object = session.getAttribute("login");
-		System.out.println("preHandle : " + (String) object);
+		String loggedInID = (String) session.getAttribute("loggedInID");
 
-		if (object == null) {
-			response.sendRedirect("/login");
-			return false;
+		MemberDTO memberDTO = memberDAO.get(loggedInID);
+
+		if (session.getAttribute("isLogin") != null && memberDTO.getAuthority() >= 5) {
+			return true;
 		}
-		return true;
+		response.sendRedirect("/");
+		return false;
 	}
 
 	@Override

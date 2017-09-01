@@ -1,25 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com">
-	<insert id="insertMember" parameterType="com.menu.model.EventBoardDTO">
-		insert into erp_member values(0, #{id}, #{name}, #{pass}, #{company}, #{hp}, #{email}, #{address}, now(), #{level}, #{profile_image}, #{origin_filename})
+	<select id="getMemberInt" parameterType="int" resultType="com.menu.model.MemberDTO">
+		select * from erp_member where num = #{num}
+	</select>
+	<select id="getMemberStr" parameterType="String" resultType="com.menu.model.MemberDTO">
+		select * from erp_member where id = #{id}
+	</select>
+	<insert id="insertMember" parameterType="com.menu.model.MemberDTO">
+		insert into erp_member values(0, #{id}, #{name}, md5(#{pass}), #{company}, #{hp}, #{email}, #{address}, now(), #{level}, #{saved_filename}, #{origin_filename}, 0, 'N', #{postcode}, #{detailed_address}, #{lock_reason}, 1)
 	</insert>
 	<select id="checkCertification_key" parameterType="String" resultType="int">
 		select count(*) from certification_key where certification_key = #{certification_key}
 	</select>
 	<select id="memberCount" resultType="int">
-		select count(*) from erp_member
+		select count(*) from erp_member where num > 1
 	</select>
-	<select id="memberList" resultType="com.menu.model.MemberDTO">
-		select * from erp_member order by joindate
+	<select id="searchMemberCount" resultType="int" parameterType="HashMap">
+		select count(*) from erp_member where
+		<choose>
+			<when test="search_type == 'id'">
+				id 
+			</when>
+			<when test="search_type == 'name'">
+				name 
+			</when>
+		</choose>
+		like CONCAT('%',#{keyword},'%')
 	</select>
 	<select id="loginMember" parameterType="HashMap" resultType="com.menu.model.MemberDTO">
-		select * from erp_member where id = #{id} and pass = #{pass}
+		select * from erp_member where id = #{id} and pass = md5(#{pass})
 	</select>
 	<select id="checkMemberFilename" resultType="int" parameterType="String">
-		select count(*) from erp_member where profile_image = #{profile_image}
+		select count(*) from erp_member where saved_filename = #{saved_filename}
 	</select>
 	<select id="checkMemberID" resultType="int" parameterType="String">
 		select count(*) from erp_member where id = #{id}
 	</select>
+	<update id="initLoginFailCount" parameterType="String">
+		update erp_member set login_fail_count = 0 where id = #{id}
+	</update>
+	<update id="increaseLoginFailCount" parameterType="String">
+		update erp_member set login_fail_count = login_fail_count + 1 where id = #{id}
+	</update>
+	<update id="alterAccountLock" parameterType="HashMap">
+		update erp_member set is_account_lock = #{isLock} where id = #{id}
+	</update>
+	<update id="updateProfile" parameterType="com.menu.model.MemberDTO">
+		update erp_member set name = #{name}, company = #{company}, address = #{address}, detailed_address = #{detailed_address}, level = #{level}, saved_filename = #{saved_filename}, origin_filename = #{origin_filename} where num = #{num}
+	</update>
+	<update id="updateCall" parameterType="com.menu.model.MemberDTO">
+		update erp_member set email = #{email}, hp = #{hp} where num = #{num}
+	</update>
+	<update id="updatePass" parameterType="com.menu.model.MemberDTO">
+		update erp_member set pass = md5(#{pass}) where num = #{num}
+	</update>
+	<update id="updateLock" parameterType="com.menu.model.MemberDTO">
+		update erp_member set is_account_lock = #{is_account_lock}
+		<if test="is_account_lock == 'N'.toString()">
+			, login_fail_count = 0
+		</if>
+		<if test="is_account_lock == 'Y'.toString()">
+			, lock_reason = #{lock_reason}
+		</if>
+		where num = #{num}
+	</update>
+	<update id="updateAuth" parameterType="com.menu.model.MemberDTO">
+		update erp_member set authority = #{authority} where num = #{num}
+	</update>
+	<select id="passUpdateCheck" parameterType="HashMap" resultType="com.menu.model.MemberDTO">
+		select * from erp_member where num = #{num} and pass = md5(#{pass})
+	</select>
+	<delete id="deleteMember" parameterType="int">
+		delete from erp_member where num = #{num}
+	</delete>
+	<select id="memberList" resultType="com.menu.model.MemberDTO" parameterType="HashMap">
+		select * from erp_member where num > 1 order by
+		<choose>
+			<when test="sort == 'date'">
+				joindate desc
+			</when>
+			<when test="sort == 'id'">
+				id
+			</when>
+			<when test="sort == 'name'">
+				name
+			</when>
+		</choose>
+		limit #{start}, #{perPage}
+	</select>
+	<select id="memberSearchList" resultType="com.menu.model.MemberDTO" parameterType="HashMap">
+		select * from erp_member where
+		<choose>
+			<when test="search_type == 'id'">
+				id
+			</when>
+			<when test="search_type == 'name'">
+				name
+			</when>
+		</choose>
+		like CONCAT('%',#{keyword},'%')
+		order by
+		<choose>
+			<when test="sort == 'date'">
+				joindate desc
+			</when>
+			<when test="sort == 'id'">
+				id
+			</when>
+			<when test="sort == 'name'">
+				name
+			</when>
+		</choose>
+		limit #{start}, #{perPage}
+	</select>
+	<update id="updateCertification_key" parameterType="String">
+		update certification_key set certification_key = #{certification_key}
+	</update>
 </mapper>

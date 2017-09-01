@@ -41,21 +41,30 @@
                         <a href="${root}/notice">공지사항</a>
                     </li>
                     <li>
-                    	<c:if test="${login eq null }">
+                    	<c:if test="${isLogin eq null }">
                         	<a href="${root}/login">로그인</a>
                         </c:if>
-                        <c:if test="${login ne null }">
+                        <c:if test="${isLogin ne null }">
                         	<a href="/logout">로그아웃</a>
                         </c:if>
                     </li>
-                    <c:if test="${login eq null }">
-	                    <li>
-	                        <a href="${root}/join">회원가입</a>
-	                    </li>
+                   	<c:if test="${isLogin eq null }">
+                   		<li><a href="${root}/join">회원가입</a></li>
+					</c:if>
+					<c:if test="${isLogin ne null }">
+						<c:if test="${isAdmin ne null }">
+							<li><a href="/admin">관리자페이지</a></li>
+						</c:if>
+						<li><a href="/mypage">마이페이지</a></li>
 					</c:if>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
+            <div style="width: 100%" align="right">
+            	<c:if test="${isLogin ne null }">
+            		${loggedInID }님이 로그인 하셨습니다.
+            	</c:if>
+            </div>
         </div>
         <!-- /.container -->
 
