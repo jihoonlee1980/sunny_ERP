@@ -41,7 +41,7 @@
 		});
 	});
 </script>
-	<div class="type_div" style="position: absolute; z-index: 9999; width: 100%; text-align: center; top:50%;">
+	<div class="type_div" style="position: absolute; z-index: 9999; width: 60%; text-align: center; top:50%; left:20%">
 	  	<span class="type"></span>
 	</div>
 <!-- Header -->

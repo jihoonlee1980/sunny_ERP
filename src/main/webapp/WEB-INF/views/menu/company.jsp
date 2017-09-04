@@ -7,6 +7,8 @@
 <%@ page session="false"%>
 <c:set var="root_" value="<%=request.getContextPath() %>" />
 <c:set var="root" value="${root_}/resources" />
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf50b40347d9d9c1accf7af455fa139"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <!-- Header -->
 <div class="banner company_banner">
 	<div class="container">
@@ -26,7 +28,7 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">History(연혁)</h2><br>
-                    <p class="lead"><a target="_blank" href="http://factorysunny.com/">써니 팩토리</a>(Sunny Factory)는
+                    <p class="lead"><a target="_blank" href="http://sunnyfactory.net">써니 팩토리</a>(Sunny Factory)는
                     <br><br>
                     2017. 04. 08<br>
                     	설립 되었습니다.<br><br></p>
@@ -55,7 +57,7 @@
                     <br>응용소프트웨어 개발 및 공급업<br>시스템                  
                     <br><br><br>
                     5) 개&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;발 : ios, Android WEB, IOT<br><br><br>
-                    6) 홈페이지 : <a target="_blank" href="http://factorysunny.com/"> http://factorysunny.com/</a><br><br><br>
+                    6) 홈페이지 : <a target="_blank" href="http://sunnyfactory.net">http://sunnyfactory.net</a><br><br><br>
                     7) E-mail :<a href="mailto:seun80@hanmail.net"> seun80@hanmail.net</a><br>
                    </h5>
                 </div><br>
@@ -79,76 +81,46 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">회사위치(Location)</h2><br>
-                    <p class="lead"><a target="_blank" href="http://factorysunny.com/">광주CGI센터</a>
+                    <p class="lead"><a target="_blank" href="http://map.daum.net/?from=total&nil_suggest=btn&tab=place&q=%EA%B4%91%EC%A3%BCCGI%EC%84%BC%ED%84%B0">광주CGI센터</a>
                     </p>
                 </div>
     
                 <br><br>
+                
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <!-- <img class="img-responsive" src="resources/photo/photo3.png" alt=""> -->
                     <center>		
-						<div id="post_content">
-							<!-- <iframe id="map" width="100%" height="100%" 
-							frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe> -->
-							<div id="map" style="width: 260px; height: 300px;"></div>
-						</div>
+						<div id="map" style="height: 300px;"></div>
 						<br>
                     	<center>
 	                		<caption><b style="font-size: 14pt;color:gray;">Originated by Daum Maps</b></caption><br>
 	                	</center>
 					</center>
-				<script type="text/javascript"
-					src="//apis.daum.net/maps/maps3.js?apikey=5cd4ad3ec7ff604b1698e2754ffb0b64&libraries=services"></script>
-				<script>
-				// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-				var infowindow = new daum.maps.InfoWindow({zIndex:1});
-				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-				    mapOption = {
-				        center: new daum.maps.LatLng(37.0183313, 127.3830068),  // 지도의 중심좌표
-				        level: 3 // 지도의 확대 레벨
-				    };  
-				// 지도를 생성합니다    
-				var map = new daum.maps.Map(mapContainer, mapOption); 
-				// 장소 검색 객체를 생성합니다
-				var ps = new daum.maps.services.Places(); 
-				// 키워드로 장소를 검색합니다
-				ps.keywordSearch('광주CGI센터', placesSearchCB); 
-				// 키워드 검색 완료 시 호출되는 콜백함수 입니다
-				function placesSearchCB (status, data, pagination) {
-				    if (status === daum.maps.services.Status.OK) {
-				        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-				        // LatLngBounds 객체에 좌표를 추가합니다
-				        var bounds = new daum.maps.LatLngBounds();
-				        for (var i=0; i<data.places.length; i++) {
-				            displayMarker(data.places[i]);    
-				            bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
-				        }       
-				        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-				        map.setBounds(bounds);
-				    } 
-				}
-				// 지도에 마커를 표시하는 함수입니다
-				function displayMarker(place) {
-				    // 마커를 생성하고 지도에 표시합니다
-				    var marker = new daum.maps.Marker({
-				        map: map,
-				        position: new daum.maps.LatLng(place.latitude, place.longitude) 
-				    });
-				    // 마커에 클릭이벤트를 등록합니다
-				    daum.maps.event.addListener(marker, 'click', function() {
-				        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-				        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
-				        infowindow.open(map, marker);
-				    });
-				}
-				</script>
                 </div>
             </div>
-
-        </div>
-        <!-- /.container -->
-
+        </div><!-- /.container -->
     </div>
+    
+		<script type="text/javascript">
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new daum.maps.LatLng(35.1105427,126.8777258), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };
+
+			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+			// 마커가 표시될 위치입니다 
+			var markerPosition  = new daum.maps.LatLng(35.1105427,126.8777258); 
+	
+			// 마커를 생성합니다
+			var marker = new daum.maps.Marker({
+			    position: markerPosition
+			});
+	
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+
+		</script>
     
 <a name="contact"></a>
 <div class="banner">

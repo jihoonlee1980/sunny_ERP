@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com">
+	<delete id="deleteCommentCascade" parameterType="int">
+		delete from erp_comment where comment_num = #{num}
+	</delete>
+	<delete id="deleteBoardCascade" parameterType="int">
+		delete from erp_comment where board_num = #{board_num}
+	</delete>
+	<delete id="deleteWriterCascade" parameterType="String">
+		delete from erp_comment where writer = #{writer}
+	</delete>
+	<delete id="deleteComment" parameterType="int">
+		delete from erp_comment where num = #{num}
+	</delete>
+
+	<insert id="insertComment" parameterType="com.menu.model.CommentDTO">
+		insert into erp_comment values(0, #{board_num}, #{comment_num}, #{writer}, #{content}, now(), 0)
+	</insert>
+	<insert id="insertReply" parameterType="com.menu.model.CommentDTO">
+		insert into erp_comment values(0, #{board_num}, #{comment_num}, #{writer}, #{content}, now(), 0)
+	</insert>
+	
+	<update id="updateComment" parameterType="com.menu.model.CommentDTO">
+		update erp_comment set content = #{content} where num = #{num}
+	</update>
+	<update id="updateReply" parameterType="com.menu.model.CommentDTO">
+	</update>
+	
+	<select id="commentList" parameterType="int" resultType="com.menu.model.CommentDTO">
+		select * from erp_comment where board_num = #{board_num} and comment_num = 0 order by writetime desc
+	</select>
+	<select id="replyList" parameterType="int" resultType="com.menu.model.CommentDTO">
+		select * from erp_comment where comment_num = #{comment_num} order by writetime desc
+	</select>
+	
+	<update id="updateReplyCount" parameterType="HashMap">
+		update erp_comment set reply_count = reply_count + #{countValue} where num = #{num}
+	</update>
+	<select id="getReplyCountOnDeleteMember" parameterType="String" resultType="HashMap">
+		select comment_num, count(*) count from erp_comment where writer = #{writer} and comment_num > 0 group by comment_num
+	</select>
+	<select id="getCommentCountOnDeleteMember" parameterType="String" resultType="HashMap">
+		select board_num, count(*) count from erp_comment where writer = #{writer} and comment_num = 0 group by board_num
+	</select>
+</mapper>

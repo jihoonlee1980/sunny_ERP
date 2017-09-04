@@ -152,7 +152,7 @@
 				html += "<img src='${root }/profile/" + loggedInProfile + "' alt=''>";
 				html += "</div>";
 				html += "<div class='reply-textarea'>";
-				html += "<textarea rows='3' style='width: 100%;' name='content' required='required'></textarea>";
+				html += "<textarea rows='3' style='width: 100%;' name='content' required='required' placeholder='깨끗한 댓글 문화를 만들어갑시다.'></textarea>";
 				html += "</div>";
 				html += "<div style='background: #fff;' align='right'>";
 				html += "<input type='hidden' name='board_num' value='" + board_num + "'>";
@@ -436,7 +436,7 @@
 									<img src="${root }/profile/${loggedInProfile}" alt="">
 								</div>
 								<div class="comment-textarea">
-									<textarea rows="4" style="width: 100%;" name="content" required="required" placeholder="!@#!#!@#"></textarea>
+									<textarea rows="4" style="width: 100%;" name="content" required="required" placeholder="깨끗한 댓글 문화를 만들어 갑시다."></textarea>
 								</div>
 								<div style="background: #fff;" align="right">
 									<input type="hidden" name="board_num" value="${param.num }">

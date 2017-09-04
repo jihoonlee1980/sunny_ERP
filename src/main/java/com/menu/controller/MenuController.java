@@ -98,7 +98,9 @@ public class MenuController {
 		if (!"".equals(attacehd_file.getOriginalFilename())) {
 			String originFileName = attacehd_file.getOriginalFilename();
 			String extension = originFileName.substring(originFileName.lastIndexOf("."));
-			String eventPath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
+			String eventPath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event";
+			// String eventPath =
+			// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
 			// String eventPath =
 			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event";
 			String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
@@ -237,7 +239,9 @@ public class MenuController {
 			if (!"".equals(attacehd_file.getOriginalFilename())) {
 				String originFileName = attacehd_file.getOriginalFilename();
 				String extension = originFileName.substring(originFileName.lastIndexOf("."));
-				String eventPath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
+				String eventPath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event";
+				// String eventPath =
+				// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
 				// String eventPath =
 				// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event";
 				String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
@@ -264,7 +268,10 @@ public class MenuController {
 			@RequestParam(value = "page", defaultValue = "1") int page) {
 		String savedFileName = erpBoardDAO.get(num).getSaved_filename();
 		File file = new File(
-				"C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\" + savedFileName);
+				"\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event" + savedFileName);
+		// File file = new File(
+		// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\"
+		// + savedFileName);
 		// File file = new
 		// File("C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event"
 		// + savedFileName);
@@ -283,7 +290,11 @@ public class MenuController {
 		String saved_fileName = erpBoardDTO.getSaved_filename();
 
 		byte fileByte[] = FileUtils.readFileToByteArray(new File(
-				"C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\" + saved_fileName));
+				 "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event"
+				 + saved_fileName));
+//		 byte fileByte[] = FileUtils.readFileToByteArray(new File(
+//		 "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\"
+//		 + saved_fileName));
 		// byte fileByte[] = FileUtils.readFileToByteArray(
 		// new
 		// File("C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event"
@@ -442,7 +453,9 @@ public class MenuController {
 		if (!"".equals(profile_image_file.getOriginalFilename())) {
 			String originFileName = profile_image_file.getOriginalFilename();
 			String extension = originFileName.substring(originFileName.lastIndexOf("."));
-			String profilePath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+			String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
+			// String profilePath =
+			// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
 			// String profilePath =
 			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\profile";
 			String savedFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
@@ -483,7 +496,9 @@ public class MenuController {
 			commentDAO.updateReplyCount(comment_num.intValue(), (-1) * countValue.intValue());
 		}
 
-		String profilePath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+		String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
+		// String profilePath =
+		// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
 		File file = new File(profilePath + "\\" + memberDAO.get(id).getSaved_filename());
 
 		if (file.exists())
@@ -497,10 +512,12 @@ public class MenuController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/member/delete", params = "nums", method = RequestMethod.GET)
+	@RequestMapping(value = "/members/delete", params = "nums", method = RequestMethod.GET)
 	public String deleteMembers(@RequestParam(value = "nums", required = true) String nums) {
 		String[] num_array = nums.split(",");
-		String profilePath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+		String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
+		// String profilePath =
+		// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
 
 		for (int i = 0; i < num_array.length; i++) {
 			int num = Integer.parseInt(num_array[i]);
@@ -680,7 +697,9 @@ public class MenuController {
 		MultipartFile profile_image_file = memberDTO.getProfile_image_file();
 
 		if (!"".equals(profile_image_file.getOriginalFilename())) {
-			String profilePath = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+			String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
+			// String profilePath =
+			// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
 			File file = new File(profilePath + "\\" + memberDAO.get(memberDTO.getNum()).getSaved_filename());
 
 			if (file != null)
@@ -840,11 +859,11 @@ public class MenuController {
 
 		return map;
 	}
-	
-	@RequestMapping(value="/certifi/update")
-	public String updateCertifi(String certification_key){
+
+	@RequestMapping(value = "/certifi/update")
+	public String updateCertifi(String certification_key) {
 		memberDAO.updateCertification_key(certification_key);
-		
+
 		return "redirect:/admin";
 	}
 }

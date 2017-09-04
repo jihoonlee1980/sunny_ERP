@@ -66,6 +66,9 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin" />
+			<mapping path="/members/delete"/>
+			<mapping path="/lock/update"/>
+			<mapping path="/auth/update"/>			
 			<beans:ref bean="adminInterceptor" />
 		</interceptor>
 	</interceptors>
