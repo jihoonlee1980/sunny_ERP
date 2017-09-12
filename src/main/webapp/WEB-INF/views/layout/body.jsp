@@ -8,41 +8,46 @@
 <c:set var="root" value="${root_}/resources"/>
 <script src="${root }/js/typed.js"></script>
 <style>
-	#typed-cursor{
-		font-size: 2em;
-		font-family: arial;
-		font-weight: 700;
+#typed-cursor {
+	font-size: 2em;
+	font-family: arial;
+	font-weight: 700;
+}
+
+.gradtext {
+	background: #55ffaa;
+	background: -webkit-linear-gradient(left, #55ff55, #55ffff);
+	background: -moz-linear-gradient(right, #55ff55, #55ffff);
+	background: -o-linear-gradient(right, #55ff55, #55ffff);
+	background: linear-gradient(to right, #55ff55, #55ffff);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+@media ( max-width : 992px) {
+	.type_div {
+		display: none;
 	}
-	.type{
-		font-size: 2em;
-		font-family: arial;
-		font-weight: 700;
-		color: #fcc447;
-/* 		background-color: #777; */
-	}
-	@media(max-width: 992px){
-		.type_div{
-			display: none;
-		}
-	}
+}
 </style>
 <script type="text/javascript">
-	$(function(){
-		$(".type").typed({
-			strings : [
-				"SunnyFactory에 오신 것을 환영합니다.",
-				"SunnyERP는 언제, 어디서 든지",
-				"SunnyERP는 PC에서도 모바일에서도",
-				"SunnyERP는 똑같은 화면과 기능을 사용할 수 있습니다."
-			],
-			typeSpeed : 50,
-			backDelay : 2000,
-			loop : true
-		});
+	$(function() {
+		$(".type").typed(
+				{
+					strings : [ "SunnyFactory에 오신 것을 환영합니다.",
+							"SunnyERP는 언제, 어디서 든지", "SunnyERP는 PC에서도 모바일에서도",
+							"SunnyERP는 똑같은 화면과 기능을 사용할 수 있습니다." ],
+					typeSpeed : 50,
+					backDelay : 2000,
+					loop : true
+				});
 	});
 </script>
-	<div class="type_div" style="position: absolute; z-index: 9999; width: 60%; text-align: center; top:50%; left:20%">
-	  	<span class="type"></span>
+	<div class="type_div" style="position: absolute; z-index: 9999; width: 60%; text-align: center; top:20%; left:20%">
+	  	<span class="type gradtext"></span>
 	</div>
 <!-- Header -->
     <a name="about"></a>
@@ -55,51 +60,44 @@
 	    <li data-target="#mycarousel" data-slide-to="3"></li>
 	    <li data-target="#mycarousel" data-slide-to="4"></li>
 	    <li data-target="#mycarousel" data-slide-to="5"></li>
-	    <li data-target="#mycarousel" data-slide-to="6"></li>
 	  </ol>
 	
 	  <!-- Wrapper for slides -->
 	  <div class="carousel-inner" role="listbox">
 	    <div class="item active">
-	      <img src="${root}/img/slide/sunny1.png" alt="..." width="100%" height="70%">
-	      <div class="carousel-caption">
-	      	<h3>WeatherCoordinator</h3>
-	      </div>
-	    </div>
-	    <div class="item">
-	      <img src="${root}/img/slide/sunny2.png" alt="..."  width="100%" height="70%">
-	      <div class="carousel-caption">
-	      	<h3>SongWriter</h3>
-	      </div>
-	    </div>
-	    <div class="item">
-	      <img src="${root}/img/slide/sunny3.png" alt="..."  width="100%" height="70%">
+	      <img src="${root}/img/slide/sunnyfactory.png" alt="..." width="100%" height="70%">
 	      <div class="carousel-caption">
 	      	<h3>SunnyFactory</h3>
 	      </div>
 	    </div>
 	    <div class="item">
-	      <img src="${root}/img/slide/sunny4.png" alt="..."  width="100%" height="70%">
+	      <img src="${root}/img/slide/songwriting.png" alt="..."  width="100%" height="70%">
+	      <div class="carousel-caption">
+	      	<h3>SongWriter</h3>
+	      </div>
+	    </div>
+	    <div class="item">
+	      <img src="${root}/img/slide/triservation.png" alt="..."  width="100%" height="70%">
 	      <div class="carousel-caption">
 	      	<h3>Triservation</h3>
 	      </div>
 	    </div>
 	    <div class="item">
-	      <img src="${root}/img/slide/sunny5.png" alt="..."  width="100%" height="70%">
+	      <img src="${root}/img/slide/javagram.png" alt="..."  width="100%" height="70%">
 	      <div class="carousel-caption">
-	      	<h3>STARBUCKS</h3>
+	      	<h3>Javagram</h3>
 	      </div>
 	    </div>
 	    <div class="item">
-	      <img src="${root}/img/slide/sunny6.png" alt="..."  width="100%" height="70%">
+	      <img src="${root}/img/slide/sunnygram.png" alt="..."  width="100%" height="70%">
 	      <div class="carousel-caption">
-	      	<h3>TELEGRAM</h3>
+	      	<h3>Sunnygram</h3>
 	      </div>
 	    </div>
 	    <div class="item">
-	      <img src="${root}/img/slide/sunny8.png" alt="..."  width="100%" height="70%">
+	      <img src="${root}/img/slide/weathercoordinator.png" alt="..."  width="100%" height="70%">
 	      <div class="carousel-caption">
-	      	<h3>SunnyERP</h3>
+	      	<h3>Weathercoordinator</h3>
 	      </div>
 	    </div>
 	  </div>

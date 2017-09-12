@@ -13,27 +13,34 @@ public class ErrorController {
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
          
         ModelAndView errorPage = new ModelAndView("errorPage");
+        String errorCode = "";
         String errorMsg = "";
         int httpErrorCode = getErrorCode(httpRequest);
  
         switch (httpErrorCode) {
-            case 400: {
-                errorMsg = "Http Error Code: 400. Bad Request";
-                break;
-            }
-            case 401: {
-                errorMsg = "Http Error Code: 401. Unauthorized";
+            case 403: {
+            	errorCode = "403 Error.";
+                errorMsg = "Http Error Code: 403. 접근 금지.";
                 break;
             }
             case 404: {
-                errorMsg = "Http Error Code: 404. Resource not found";
+            	errorCode = "404 Error.";
+                errorMsg = "Http Error Code: 404. 요청한 리소스가 없음.";
                 break;
             }
             case 500: {
-                errorMsg = "Http Error Code: 500. Internal Server Error";
+            	errorCode = "500 Error.";
+                errorMsg = "Http Error Code: 500. 요청 처리중 에러 발생.";
+                break;
+            }
+            case 503: {
+            	errorCode = "503 Error.";
+                errorMsg = "Http Error Code: 500. 일시적인 요청처리 불가.";
                 break;
             }
         }
+        
+        errorPage.addObject("errorCode", errorCode);
         errorPage.addObject("errorMsg", errorMsg);        
         return errorPage;
     }

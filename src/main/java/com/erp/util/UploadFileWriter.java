@@ -11,7 +11,7 @@ public class UploadFileWriter {
 	public void writeFile(MultipartFile multipartFile, String path, String fileName) {
 		try {
 			byte fileData[] = multipartFile.getBytes();
-			fos = new FileOutputStream(path + "\\" + fileName);
+			fos = new FileOutputStream(path + "/" + fileName);
 			fos.write(fileData);
 		} catch (Exception e) {
 			e.printStackTrace();

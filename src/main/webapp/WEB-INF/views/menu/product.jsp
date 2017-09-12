@@ -41,7 +41,8 @@
 					<li><b>백업</b><br>3중 관리(DATA+DB)</li>
 				</ul>
 				<div class="footer">
-					<a href="#" class="action_button">Buy Now</a>
+					<a href="tel:010-4932-9224" class="action_button">전화걸기</a>
+					<a href="mailto:seun80@hanmail.net?subject=체험판%20사용%20신청합니다." class="action_button">메일 보내기</a>
 				</div>
 			</li>
 			<li class="price_block">
@@ -59,7 +60,8 @@
 					<li><b>백업</b><br>3중 관리(DATA+DB)</li>
 				</ul>
 				<div class="footer">
-					<a href="#" class="action_button">Buy Now</a>
+					<a href="tel:010-4932-9224" class="action_button">전화 걸기</a>
+					<a href="mailto:seun80@hanmail.net?subject=베이직판%20사용%20신청합니다." class="action_button">메일 보내기</a>
 				</div>
 			</li>
 			<li class="price_block">
@@ -77,7 +79,8 @@
 					<li><b>백업</b><br>3중 관리(DATA+DB)</li>
 				</ul>
 				<div class="footer">
-					<a href="#" class="action_button">Buy Now</a>
+					<a href="tel:010-4932-9224" class="action_button">전화 걸기</a>
+					<a href="mailto:seun80@hanmail.net?subject=프리미엄판%20사용%20신청합니다." class="action_button">메일 보내기</a>
 				</div>
 			</li>
 		</ul>
@@ -87,23 +90,22 @@
 			<div class="sigma-content col-lg-3 col-md-6 sigma-bg-lightgray text-center">
 				<span class="sigma-icon fa fa-bell"></span>
 				<h2>알림</h2>
-				<p>알림기능</p>
+				<p>실시간 공정 현황 / 팝업 알림</p>
 			</div>
 			<div class="sigma-content col-lg-3 col-md-6 sigma-bg-gray text-center">
 				<span class="sigma-icon fa fa-send"></span>
 				<h2>쪽지</h2>
-				<p>쪽지기능</p>
+				<p>간단한 메세지 송수신</p>
 			</div>
 			<div class="sigma-content col-lg-3 col-md-6 sigma-bg-darkgray text-center">
 				<span class="sigma-icon fa fa-window-maximize"></span>
 				<h2>모바일 App</h2>
-				<p>모바일 App</p>
+				<p>모바일 환경에서도 똑같은 기능</p>
 			</div>	           
 		</div>    		
         <script>
        	$(document).ready(function() {
         	$('.thumbnail').click(function(){
-        		//alert("test");
         	    $('.modal-body').empty();
         	  	var title = $(this).parent('a').attr("title");
         	  	console.log("title : "+title);
@@ -115,17 +117,18 @@
        	});
         </script>
 		<div style="clear:both;"></div>
-		<div class="gallery-row" style="margin-bottom:50px;">
+		<div class="gallery-row" style="margin-bottom:50px; text-align: center;">
 			<h1 style="margin:50px 0;">미리보기</h1>			   
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 1" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 2" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/2255EE"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 3" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/449955/FFF"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 4" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/992233"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 5" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/2255EE"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 6" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/449955/FFF"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 8" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/777"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 9" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/992233"></a><div><h4>TEST</h4><p>testetes</p></div></div>
-			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 10" href="#;"><img class="thumbnail img-responsive" src="//placehold.it/600x350/EEE"></a><div><h4>TEST</h4><p>testetes</p></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="메인" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/main.jpg"></a><div><h4>메인</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="공통정보" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/common.jpg"></a><div><h4>공통정보</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="구매발주" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/buy.jpg"></a><div><h4>구매발주</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="생산제조" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/product.jpg"></a><div><h4>생산제조</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="자재명세서" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/bom.jpg"></a><div><h4>자재명세서</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="단가관리" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/cost.jpg"></a><div><h4>단가관리</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="영업출고출하" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/sale.jpg"></a><div><h4>영업출고출하</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="재고창고" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/stock.jpg"></a><div><h4>재고창고</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="알림" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/alarm.jpg"></a><div><h4>알림</h4></div></div>
+			<div class="col-lg-3 col-sm-4 col-xs-6"><a title="쪽지" href="#;"><img class="thumbnail img-responsive" src="${root }/img/product/message.jpg"></a><div><h4>쪽지</h4></div></div>
 		</div>		
 		<div tabindex="-1" class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
@@ -134,7 +137,7 @@
 						<button class="close" type="button" data-dismiss="modal">×</button>
 						<h3 class="modal-title">Heading</h3>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="text-align: center;">
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-default" data-dismiss="modal">Close</button>

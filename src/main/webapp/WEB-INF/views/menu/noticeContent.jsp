@@ -40,6 +40,59 @@
 }
 </style>
 <script type="text/javascript">
+	$(function(){
+		$(document).on("click", ".updateReplyForm", function(){
+			var content_div = $(this).parents().siblings(".comment-content");
+			var current_content = $(this).siblings("p.comment-hidden").text();
+			var num = $(this).attr("num");
+			var board_num = $(this).attr("board_num");
+			var page = $(this).attr("page");
+			
+			if($(this).hasClass("active")){
+				$(this).css("color", "#a6a6a6");
+				$(this).removeClass("active");
+				content_div.empty();
+				content_div.text(current_content);
+			} else {
+				$(this).css("color", "#03658c");
+				$(this).addClass("active");
+				var html = "<textarea rows='4' cols='' style='width: 100%'>";
+				html += current_content;
+				html += "</textarea>";
+				html += "<div style='width: 100%' align='right'><button type='button' class='btn btn-sm btn-success updateBtn'>수정</button><button type='button' class='btn btn-sm btn-default updateCancel'>취소</button></div>";
+				$(document).on("click", ".updateBtn", function(){
+					var update_btn = $(this);
+					swal({
+						title : "댓글을 수정 하시겠습니까?",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "네",
+						cancelButtonText : "아니요",
+						closeOnConfirm : false,
+						closeOnCancel : false
+					}, function(isConfirm) {
+						if (isConfirm) {
+							var new_content = update_btn.parents().siblings("textarea").val();
+							location.href = "/comment/update?num=" + num + "&content=" + new_content + "&board_num=" + board_num + "&page=" + page + "&type=notice";
+						} else {
+							swal("취소", "댓글 수정을 취소하였습니다.", "error");
+						}
+					});
+				});
+				
+				$(document).on("click", ".updateCancel", function(){
+					var content_div = $(this).parents(".comment-content");
+					content_div.empty();
+					content_div.text(content_div.siblings(".comment-head").children("p.comment-hidden").text());
+					content_div.siblings(".comment-head").children("i.fa-pencil-square-o").css("color", "#a6a6a6");
+					content_div.siblings(".comment-head").children("i.fa-pencil-square-o").removeClass("active");
+				});
+				content_div.html(html);
+			}
+		});
+	});
+
 	function showComment(obj, perPage, perBlock, totalPage){
 		var liLength = $("#comments-list li").length;
 		$(obj).siblings().removeClass("active");
@@ -69,7 +122,7 @@
 			startIndex = 0;
 		
 		$("#comment-pagination>li").removeClass("show");
-		$("#comment-pagination>li").slice(startIndex, endIndex).addClass("show")
+		$("#comment-pagination>li").slice(startIndex, endIndex).addClass("show");
 	}
 
 	function updateModal(num){
@@ -173,61 +226,14 @@
 						html += "<h6 class='comment-name'>" + commentDTO.writer + "</h6>";
 						html += "<span class='span-date'>" + formatDate(commentDTO.writetime) +  "</span>";
 						if(commentDTO.writer == loggedInID){
-							html += "<i class='fa fa-trash' onclick='deleteReply(this)' num='" + commentDTO.num + "' board_num='" + board_num +"' comment_num='" + comment_num + "' page='" + page + "'></i>";
-							html += "<i class='fa fa-pencil-square-o' id='updateReplyForm" + commentDTO.num + "'></i>";
+							html += "<i class='fa fa-trash' onclick='deleteReply(this)' num='" + commentDTO.num + "' comment_num='" + comment_num + "' board_num='" + board_num +"' page='" + page + "'></i>";
+							html += "<i class='fa fa-pencil-square-o updateReplyForm' num='" + commentDTO.num + "' board_num='" + board_num +"' page='" + page + "'></i>";
 							html += "<p class='comment-hidden' style='display: none;'>" + commentDTO.content + "</p>";
-							
-							$(document).on("click", "#updateReplyForm" + commentDTO.num, function(){
-								var content_div = $(this).parents().siblings(".comment-content");
-								var current_content = $(this).siblings("p.comment-hidden").text();
-								if($(this).hasClass("active")){
-									$(this).css("color", "#a6a6a6");
-									$(this).removeClass("active");
-									content_div.empty();
-									content_div.text(current_content);
-								} else {
-									$(this).css("color", "#03658c");
-									$(this).addClass("active");
-									var html = "<textarea rows='4' cols='' style='width: 100%'>";
-									html += current_content;
-									html += "</textarea>";
-									html += "<div style='width: 100%' align='right'><button type='button' class='btn btn-sm btn-success' id='updateBtn" + commentDTO.num + "'>수정</button><button type='button' class='btn btn-sm btn-default' id='updateCancel" + commentDTO.num + "'>취소</button></div>";
-									$(document).on("click", "#updateBtn" + commentDTO.num, function(){
-										var update_btn = $(this);
-										swal({
-											title : "댓글을 수정 하시겠습니까?",
-											type : "warning",
-											showCancelButton : true,
-											confirmButtonColor : "#DD6B55",
-											confirmButtonText : "네",
-											cancelButtonText : "아니요",
-											closeOnConfirm : false,
-											closeOnCancel : false
-										}, function(isConfirm) {
-											if (isConfirm) {
-												var new_content = update_btn.parents().siblings("textarea").val();
-												location.href = "/comment/update?num=" + commentDTO.num + "&content=" + new_content + "&board_num=" + board_num + "&page=" + page + "&type=notice";
-											} else {
-												swal("취소", "댓글 수정을 취소하였습니다.", "error");
-											}
-										});
-									});
-									
-									$(document).on("click", "#updateCancel" + commentDTO.num, function(){
-										var content_div = $(this).parents(".comment-content");
-										content_div.empty();
-										content_div.text(content_div.siblings(".comment-head").children("p.comment-hidden").text());
-										content_div.siblings(".comment-head").children("i.fa-pencil-square-o").css("color", "#a6a6a6");
-										content_div.siblings(".comment-head").children("i.fa-pencil-square-o").removeClass("active");
-									});
-									content_div.html(html);
-								}
-							});
 						}
 						html += "</div>";
-						html += "<div class='comment-content'>";
+						html += "<div class='comment-content'><p style='word-break: break-all; white-space: pre-line;'>";
 						html += commentDTO.content;
-						html += "</div>";
+						html += "</p></div>";
 						html += "</div>";
 						html += "</li>";
 					}
@@ -392,7 +398,7 @@
 	            </div>
 	            <hr style="height: 2px; background: #777; width: 100%;">
 				<div class="content-div" style="width: 100%;">
-					<p style="margin-left: 20px;">
+					<p style="margin-left: 20px; word-break: break-all; white-space: pre-line;">
 						${noticeContent.content }
 					</p>
 				</div>
@@ -455,7 +461,9 @@
 													</c:if>
 												</div>
 												<div class="comment-content">
-													${commentDTO.content }
+													<p style="word-break: break-all; white-space: pre-line;">
+														${commentDTO.content }
+													</p>
 												</div>
 											</div>
 										</div>

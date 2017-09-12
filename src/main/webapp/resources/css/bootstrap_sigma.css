@@ -233,7 +233,7 @@
 		margin:0 auto;
 	}
 	.gallery-row {margin-bottom:50px;}
-	.modal-dialog {width:600px;}
+	.modal-dialog {width:auto;}
 	.thumbnail {margin-bottom:6px;}
 	
 }

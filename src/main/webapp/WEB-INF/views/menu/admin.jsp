@@ -213,6 +213,15 @@ table.admin thead tr th a {
 		}
 	}
 	
+	function updateCKForm(){
+		var div = $("#updateCK-form");
+		if(div.is(":visible")){
+			div.hide();
+		} else {
+			div.show();
+		}
+	}
+	
 	function upateAuth(obj, num, page, sort){
 		var selectedOpt = $(obj).prev("select").children("option:selected").val();
 		
@@ -249,14 +258,24 @@ table.admin thead tr th a {
 								    <div class="input-group">
 						                <div class="input-group-btn search-panel">
 						                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						                    	<span id="type">${param.search_type == 'id' ? 'ID' : '이름' }</span> <span class="caret"></span>
+						                    	<c:if test="${param.search_type eq null }">
+						                    		<span id="type">ID</span> <span class="caret"></span>
+						                    	</c:if>
+						                    	<c:if test="${param.search_type ne null }">
+						                    		<span id="type">${param.search_type == 'id' ? 'ID' : '이름' }</span> <span class="caret"></span>
+						                    	</c:if>
 						                    </button>
 						                    <ul class="dropdown-menu" role="menu">
 												<li><a href="#id">ID</a></li>
 												<li><a href="#name">이름</a></li>
 						                    </ul>
 						                </div>
-						                <input type="hidden" name="search_type" value="${param.search_type == 'id' ? 'id' : 'name' }" id="search_type">
+						                <c:if test="${param.search_type eq null }">
+						                	<input type="hidden" name="search_type" value="id" id="search_type">
+						                </c:if>
+										<c:if test="${param.search_type ne null }">
+						                	<input type="hidden" name="search_type" value="${param.search_type == 'id' ? 'id' : 'name' }" id="search_type">
+						                </c:if>
 						                <input type="hidden" name="page" value="${param.page }">
 						                <input type="hidden" name="sort" value="${param.sort }">         
 						                <input type="text" class="form-control" name="keyword" value="${param.keyword }">
@@ -328,7 +347,13 @@ table.admin thead tr th a {
 				</tbody>
 			</table>
 			<div align="right" style="margin-left: -20%; width: 140%;">
-				<form action="/certifi/update" class="form-horizontal" method="post" onsubmit="return checkCertification_key();">
+				<c:if test="${l_auth >= 10 }">
+					<button class="btn btn-sm btn-default" type="button" id="updateCK" onclick="updateCKForm()">인증번호 변경</button>
+				</c:if>
+				<button class="btn btn-sm btn-danger" type="button" id="deleteMember">삭제</button>
+			</div>
+			<div id="updateCK-form" style="width: 140%; margin-left: -20%; display: none;" align="right">
+				<form action="/certifi/update" class="form-horizontal" method="post" onsubmit="return checkCertification_key();" style="width: 20%;">
 					<div class="form-group">
 						<div class="col-sm-12">
 							<div class="input-group">
@@ -347,7 +372,7 @@ table.admin thead tr th a {
 	                            </div>
 	                    		<input type="password" class="form-control" id="pass" name="certification_key" placeholder="새 인증번호" required="required" maxlength="20">
 	                    	</div>
-                        	<div class="input-group">
+	                       	<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-lock"></i>
 	                            </div>
@@ -356,15 +381,19 @@ table.admin thead tr th a {
 						</div>
 					</div>
 					<div align="right">
-						<button type="submit" class="btn btn-sm btn-default">인증번호 변경</button>
+						<button type="submit" class="btn btn-sm btn-default">변경</button>
 					</div>
 				</form>
-				<button class="btn btn-sm btn-danger" type="button" id="deleteMember">삭제</button>
 			</div>
 			<div style="width:100%;" align="center">
 				<ul class="pagination">
 					<c:if test="${startPage > 1}">
-						<li><a href="/admin?page=${startPage - 1}">&lt;</a></li>
+						<c:if test="${param.search_type ne null }">
+							<li><a href="/member/search?page=${startPage-1}&sort=${param.sort}&search_type=${param.search_type}&keyword=${param.keyword}">&lt;</a></li>
+						</c:if>
+						<c:if test="${param.search_type eq null }">
+							<li><a href="/admin?page=${startPage - 1}&sort=${param.sort}">&lt;</a></li>
+						</c:if>
 					</c:if>
 					<c:forEach begin="${startPage}" end="${endPage}" var="page">
 						<c:if test="${param.search_type ne null }">
@@ -383,7 +412,12 @@ table.admin thead tr th a {
 						</c:if>
 					</c:forEach>
 					<c:if test="${totalPage ne endPage}">
-						<li><a href="/admin?page=${endPage + 1}">&gt;</a></li>
+						<c:if test="${param.search_type ne null }">
+							<li><a href="/member/search?page=${endPage + 1}&sort=${param.sort}&search_type=${param.search_type}&keyword=${param.keyword}">&gt;</a></li>
+						</c:if>
+						<c:if test="${param.search_type eq null }">
+							<li><a href="/admin?page=${endPage + 1}&sort=${param.sort}">&gt;</a></li>
+						</c:if>
 					</c:if>
 				</ul>
 			</div>

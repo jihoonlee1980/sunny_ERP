@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -43,6 +45,9 @@ public class MenuController {
 	CommentDAO commentDAO;
 	@Autowired
 	JavaMailSenderImpl mailSender;
+
+	final String path = "/home/hosting_users/sunnyfactory21/tomcat/webapps/ROOT/resources";
+	//final String path = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources";
 
 	final int ERP_EVENT = 1;
 	final int ERP_NOTICE = 2;
@@ -91,18 +96,14 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/event/insert", method = RequestMethod.POST)
-	public String evnetInsert(ErpBoardDTO erpBoardDTO) {
+	public String evnetInsert(ErpBoardDTO erpBoardDTO, HttpServletRequest request) {
 		MultipartFile attacehd_file = erpBoardDTO.getAttached_file();
 		erpBoardDTO.setDelim(ERP_EVENT);
 
 		if (!"".equals(attacehd_file.getOriginalFilename())) {
 			String originFileName = attacehd_file.getOriginalFilename();
 			String extension = originFileName.substring(originFileName.lastIndexOf("."));
-			String eventPath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event";
-			// String eventPath =
-			// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
-			// String eventPath =
-			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event";
+			String eventPath = path + "/img/event";
 			String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
 					+ extension;
 
@@ -124,9 +125,6 @@ public class MenuController {
 
 	@RequestMapping(value = "/event/content")
 	public ModelAndView evnetContent(@RequestParam(value = "num", required = true) int num, HttpSession session) {
-		// @RequestMapping(value = "/event/{board_num}")
-		// public ModelAndView evnetContent(@PathVariable int board_num,
-		// HttpSession session) {
 		String loginID = (String) session.getAttribute("loggedInID");
 		ErpBoardDTO erpBoardDTO = erpBoardDAO.get(num);
 		List<CommentDTO> commentDTOs = commentDAO.commentList(num);
@@ -239,11 +237,7 @@ public class MenuController {
 			if (!"".equals(attacehd_file.getOriginalFilename())) {
 				String originFileName = attacehd_file.getOriginalFilename();
 				String extension = originFileName.substring(originFileName.lastIndexOf("."));
-				String eventPath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event";
-				// String eventPath =
-				// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event";
-				// String eventPath =
-				// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event";
+				String eventPath = path + "img/event";
 				String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
 						+ extension;
 
@@ -267,14 +261,7 @@ public class MenuController {
 	public String eventDelete(@RequestParam(value = "num", required = true) int num,
 			@RequestParam(value = "page", defaultValue = "1") int page) {
 		String savedFileName = erpBoardDAO.get(num).getSaved_filename();
-		File file = new File(
-				"\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event" + savedFileName);
-		// File file = new File(
-		// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\"
-		// + savedFileName);
-		// File file = new
-		// File("C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event"
-		// + savedFileName);
+		File file = new File(path + "/img/event" + savedFileName);
 
 		file.delete();
 		erpBoardDAO.delete(num);
@@ -286,19 +273,9 @@ public class MenuController {
 	public void eventDownload(@RequestParam(value = "num", required = true) int num, HttpServletResponse response)
 			throws Exception {
 		ErpBoardDTO erpBoardDTO = erpBoardDAO.get(num);
-		// String storedFileName = (String) map.get("STORED_FILE_NAME");
 		String saved_fileName = erpBoardDTO.getSaved_filename();
 
-		byte fileByte[] = FileUtils.readFileToByteArray(new File(
-				 "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\img\\event"
-				 + saved_fileName));
-//		 byte fileByte[] = FileUtils.readFileToByteArray(new File(
-//		 "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\img\\event\\"
-//		 + saved_fileName));
-		// byte fileByte[] = FileUtils.readFileToByteArray(
-		// new
-		// File("C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\event"
-		// + saved_fileName));
+		byte fileByte[] = FileUtils.readFileToByteArray(new File(path + "/img/event/" + saved_fileName));
 
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);
@@ -453,11 +430,7 @@ public class MenuController {
 		if (!"".equals(profile_image_file.getOriginalFilename())) {
 			String originFileName = profile_image_file.getOriginalFilename();
 			String extension = originFileName.substring(originFileName.lastIndexOf("."));
-			String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
-			// String profilePath =
-			// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
-			// String profilePath =
-			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\profile";
+			String profilePath = path + "/profile";
 			String savedFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
 					+ extension;
 
@@ -496,10 +469,8 @@ public class MenuController {
 			commentDAO.updateReplyCount(comment_num.intValue(), (-1) * countValue.intValue());
 		}
 
-		String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
-		// String profilePath =
-		// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
-		File file = new File(profilePath + "\\" + memberDAO.get(id).getSaved_filename());
+		String profilePath = path + "/profile";
+		File file = new File(profilePath + "/" + memberDAO.get(id).getSaved_filename());
 
 		if (file.exists())
 			file.delete();
@@ -515,9 +486,7 @@ public class MenuController {
 	@RequestMapping(value = "/members/delete", params = "nums", method = RequestMethod.GET)
 	public String deleteMembers(@RequestParam(value = "nums", required = true) String nums) {
 		String[] num_array = nums.split(",");
-		String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
-		// String profilePath =
-		// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
+		String profilePath = path + "/profile";
 
 		for (int i = 0; i < num_array.length; i++) {
 			int num = Integer.parseInt(num_array[i]);
@@ -530,20 +499,16 @@ public class MenuController {
 			for (HashMap<String, Object> hashMap : list1) {
 				Integer board_num = (Integer) hashMap.get("board_num");
 				Long countValue = (Long) hashMap.get("count");
-				// System.out.println(board_num);
-				// System.out.println(countValue.intValue());
 				erpBoardDAO.updateCommentCount(board_num, (-1) * countValue.intValue());
 			}
 
 			for (HashMap<String, Object> hashMap : list2) {
 				Integer comment_num = (Integer) hashMap.get("comment_num");
 				Long countValue = (Long) hashMap.get("count");
-				// System.out.println(comment_num);
-				// System.out.println(countValue.intValue());
 				commentDAO.updateReplyCount(comment_num.intValue(), (-1) * countValue.intValue());
 			}
 
-			File file = new File(profilePath + "\\" + memberDAO.get(id).getSaved_filename());
+			File file = new File(profilePath + "/" + memberDAO.get(id).getSaved_filename());
 
 			if (file.exists())
 				file.delete();
@@ -697,18 +662,14 @@ public class MenuController {
 		MultipartFile profile_image_file = memberDTO.getProfile_image_file();
 
 		if (!"".equals(profile_image_file.getOriginalFilename())) {
-			String profilePath = "\\home\\hosting_users\\sunnyfactory21\\tomcat\\webapps\\ROOT\\resources\\profile";
-			// String profilePath =
-			// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources\\profile";
-			File file = new File(profilePath + "\\" + memberDAO.get(memberDTO.getNum()).getSaved_filename());
+			String profilePath = path + "/profile";
+			File file = new File(profilePath + "/" + memberDAO.get(memberDTO.getNum()).getSaved_filename());
 
 			if (file != null)
 				file.delete();
 
 			String originFileName = profile_image_file.getOriginalFilename();
 			String extension = originFileName.substring(originFileName.lastIndexOf("."));
-			// String profilePath =
-			// "C:\\workspace\\SunnyERP\\src\\main\\webapp\\resources\\img\\profile";
 			String savedFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
 					+ extension;
 

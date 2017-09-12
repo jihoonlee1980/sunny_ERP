@@ -56,7 +56,7 @@ div.radio-inline input{
 			                	<div class="col-md-6" style="margin-top: 2%">
 				                    <h4 class="list-group-item-heading"><span style="font-size: 10pt; font-weight: 600; color: #e69b0b">[${item.category }]&nbsp;&nbsp;&nbsp;</span><c:out value="${item.subject}"/><span style="font-size: 10pt; font-weight: 600; color: red">&nbsp;&nbsp;&nbsp;[ ${item.comment_count } ]</span></h4>
 			                    	<hr style="width: 100%; height: 2px; background: #777; margin-top: 5px 5px;">
-			                    	<p class="list-group-item-text"> <c:out value="${item.content}"/> </p>
+			                    	 <p class="list-group-item-text" style="max-height: 70px; word-break: break-all; white-space: pre-line; overflow: hidden;"> <c:out value="${item.content}"/> </p>
 			                	</div>
 			                	<div class="col-md-3 text-center" style="margin-top: 3%">
 				                    <h4> <c:out value="${item.readcount}"/> <small> Views </small></h4>
@@ -92,7 +92,7 @@ div.radio-inline input{
 					</ul>
 				</div>
 				<c:if test="${not empty isLogin }">
-					<c:if test="${loggedInID eq 'admin'}">
+					<c:if test="${isAdmin ne null}">
 						<div align="right">
 							<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#write" data-original-title>글쓰기</a>
 						</div>
@@ -144,7 +144,7 @@ div.radio-inline input{
 							</div>
 						</div>  
 						<div class="panel-footer" style="margin-bottom:-14px;">
-							<input type="hidden" name="writer" value="admin">
+							<input type="hidden" name="writer" value="${loggedInID }">
                             <input type="submit" class="btn btn-success" value="OK"/>
                             <input type="reset" class="btn btn-danger" value="Clear" />
                             <button style="float: right;" type="button" class="btn btn-default btn-close" data-dismiss="modal">Close</button>
