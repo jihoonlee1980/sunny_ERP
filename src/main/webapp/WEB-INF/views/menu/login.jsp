@@ -146,8 +146,8 @@
 		                	</c:when>
 		                	<c:when test="${empty loginID}">
 		                		<c:choose>
-		                			<c:when test="${isSave eq 'YES' }">
-		                				<input type="text" class="form-control" id="id" name="id" placeholder="아이디" value="${loggedInID }" autofocus="autofocus">		                				
+		                			<c:when test="${cookie.isSave.value eq 'YES'}">
+		                				<input type="text" class="form-control" id="id" name="id" placeholder="아이디" value="${cookie.saveID.value }" autofocus="autofocus">		                				
 		                			</c:when>
 		                			<c:otherwise>
 		                				<input type="text" class="form-control" id="id" name="id" placeholder="아이디" autofocus="autofocus">
@@ -175,7 +175,7 @@
 		    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
 		        <div class="col-xs-6 col-sm-6">
 		            <label class="checkbox" style="margin-left: 5px;">
-		                <input type="checkbox" id="isSave" ${isSave eq 'YES' ? "checked" : "" }>ID 기억하기
+		                <input type="checkbox" id="isSave" ${cookie.isSave.value eq 'YES' ? "checked" : "" }>ID 기억하기
 		            </label>
 		        </div>
 		        <div class="col-xs-6 col-sm-6" style="margin-top: 10px;">
