@@ -16,7 +16,7 @@ import com.menu.model.MemberDTO;
 public class AdminInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	MemberDAO memberDAO;
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -26,11 +26,11 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 
 		MemberDTO memberDTO = memberDAO.get(loggedInID);
 
-		if (session.getAttribute("isLogin") != null && memberDTO.getAuthority() >= 5) {
-			return true;
+		if (session.getAttribute("isLogin") == null || memberDTO.getAuthority() < 5) {
+			response.sendRedirect("/");
+			return false;
 		}
-		response.sendRedirect("/");
-		return false;
+		return true;
 	}
 
 	@Override

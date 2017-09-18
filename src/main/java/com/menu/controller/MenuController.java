@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,8 @@ public class MenuController {
 	JavaMailSenderImpl mailSender;
 
 	final String path = "/home/hosting_users/sunnyfactory21/tomcat/webapps/ROOT/resources";
-	//final String path = "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources";
+	// final String path =
+	// "C:\\Users\\jihyun\\git\\sunny_ERP\\src\\main\\webapp\\resources";
 
 	final int ERP_EVENT = 1;
 	final int ERP_NOTICE = 2;
@@ -237,7 +239,7 @@ public class MenuController {
 			if (!"".equals(attacehd_file.getOriginalFilename())) {
 				String originFileName = attacehd_file.getOriginalFilename();
 				String extension = originFileName.substring(originFileName.lastIndexOf("."));
-				String eventPath = path + "img/event";
+				String eventPath = path + "/img/event";
 				String saveFileName = UUID.randomUUID().toString().split("-")[0] + System.currentTimeMillis() % 10000000
 						+ extension;
 
@@ -562,7 +564,8 @@ public class MenuController {
 
 	@RequestMapping(value = "/login/proc", method = RequestMethod.POST)
 	public String loginProc(HttpSession session, MemberDTO loginInfo, RedirectAttributes redirectAttributes,
-			@RequestParam(value = "saveID", required = false) String saveID) {
+			@RequestParam(value = "saveID", required = false) String saveID, HttpServletResponse response,
+			HttpServletRequest request) {
 		String returnURL = "";
 		// 0일때 성공, 1일때 실패(비밀번호 틀림), 2일때 아이디도 없음, 3일떄 아이디 lock상태
 		int loginResult = 0;
@@ -593,9 +596,24 @@ public class MenuController {
 					session.setAttribute("isAdmin", "YES");
 
 				if ("YES".equals(saveID)) {
-					session.setAttribute("isSave", saveID);
+					Cookie cookie1 = new Cookie("isSave", "YES");
+					Cookie cookie2 = new Cookie("saveID", memberDTO.getId());
+					cookie1.setMaxAge(60 * 60 * 24 * 365);
+					cookie2.setMaxAge(60 * 60 * 24 * 365);
+					response.addCookie(cookie1);
+					response.addCookie(cookie2);
 				} else {
-					session.removeAttribute("isSave");
+					Cookie[] cookies = request.getCookies();
+					for (int i = 0; i < cookies.length; i++) {
+						if ("isSave".equals(cookies[i].getName())) {
+							Cookie cookie1 = new Cookie("isSave", null);
+							Cookie cookie2 = new Cookie("saveID", null);
+							cookie1.setMaxAge(0);
+							cookie2.setMaxAge(0);
+							response.addCookie(cookie1);
+							response.addCookie(cookie2);
+						}
+					}
 				}
 
 				memberDAO.initLoginFailCount(memberDTO.getId());
@@ -634,14 +652,23 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/logout")
-	public String logout(HttpSession session) {
-		// 세션 전체를 날려버림
-		// session.invalidate();
+	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		session.removeAttribute("isLogin");
 
-		if (!"YES".equals(session.getAttribute("isSave"))) {
-			session.removeAttribute("loggedInID");
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; i < cookies.length; i++) {
+			if ("isSave".equals(cookies[i].getName()) && "YES".equals(cookies[i].getValue())) {
+				Cookie cookie1 = new Cookie("isSave", null);
+				Cookie cookie2 = new Cookie("saveID", null);
+				cookie1.setMaxAge(0);
+				cookie2.setMaxAge(0);
+				response.addCookie(cookie1);
+				response.addCookie(cookie2);
+			}
 		}
+
+		if (session.getAttribute("isAdmin") != null)
+			session.removeAttribute("isAdmin");
 
 		return "redirect:/";
 	}
